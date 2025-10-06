@@ -44,6 +44,7 @@ import CategoryManager from "@/components/CategoryManager";
 import AcademicsManager from "@/components/AcademicsManager";
 import FacilitiesManager from "@/components/FacilitiesManager";
 import AudioMessageManager from "@/components/AudioMessageManager";
+import YearlyBookManager from "@/components/YearlyBookManager";
 import { getSupabaseData, setSupabaseData, subscribeToSupabaseChanges } from "@/lib/supabaseHelpers";
 
 // Notification interfaces
@@ -131,7 +132,7 @@ interface TeacherRecord {
 const PrincipalDashboard = () => {
   const [principalEmail, setPrincipalEmail] = useState("");
   // Restore active section from sessionStorage on mount
-  const [activeSection, setActiveSection] = useState<"dashboard" | "teachers" | "homepage" | "courses" | "gallery" | "about" | "announcements" | "admissions" | "topscorers" | "createteacherid" | "manageteachers" | "manageteacherid" | "pricemanagement" | "timetable" | "admissionsmanager" | "branding" | "events" | "categories" | "academicsmanager" | "facilitiesmanager" | "audiomessages">(() => {
+  const [activeSection, setActiveSection] = useState<"dashboard" | "teachers" | "homepage" | "courses" | "gallery" | "about" | "announcements" | "admissions" | "topscorers" | "createteacherid" | "manageteachers" | "manageteacherid" | "pricemanagement" | "timetable" | "admissionsmanager" | "branding" | "events" | "categories" | "academicsmanager" | "facilitiesmanager" | "audiomessages" | "booksmanager">(() => {
     const saved = sessionStorage.getItem('principalActiveSection');
     return (saved as any) || "dashboard";
   });
@@ -1080,6 +1081,7 @@ const PrincipalDashboard = () => {
                       { title: "Facilities Manager", desc: "Edit facilities and campus stats", icon: Settings, action: () => setActiveSection("facilitiesmanager") },
                       { title: "View Admissions", desc: "Review submitted applications", icon: FileText, action: () => setActiveSection("admissions") },
                       { title: "Manage Top Scorers", desc: "Edit students, rankings, and categories", icon: Trophy, action: () => setActiveSection("topscorers") },
+                      { title: "Yearly Books Manager", desc: "Manage recommended books for classes", icon: BookOpen, action: () => setActiveSection("booksmanager") },
                       { title: "Create New Teacher ID", desc: "Generate teacher login credentials", icon: UserPlus, action: () => setActiveSection("createteacherid") },
                       { title: "Manage Teacher IDs", desc: "View and manage teacher login credentials", icon: IdCard, action: () => setActiveSection("manageteacherid") },
                       { title: "Price Management", desc: "Update admission fees and pricing", icon: DollarSign, action: () => setActiveSection("pricemanagement") }
@@ -1506,6 +1508,31 @@ const PrincipalDashboard = () => {
                   </Button>
                 </div>
                 <TopScorersManager />
+              </div>
+            </motion.div>
+          )}
+
+          {activeSection === "booksmanager" && (
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.2 }}
+              className="mt-8"
+            >
+              <div className="bg-card/95 backdrop-blur-md rounded-xl p-6 border border-border/50">
+                <div className="flex items-center justify-between mb-6">
+                  <h2 className="text-lg font-heading font-bold text-foreground">
+                    Yearly Books Management
+                  </h2>
+                  <Button
+                    variant="outline"
+                    onClick={() => setActiveSection("dashboard")}
+                    size="sm"
+                  >
+                    Back to Dashboard
+                  </Button>
+                </div>
+                <YearlyBookManager />
               </div>
             </motion.div>
           )}
