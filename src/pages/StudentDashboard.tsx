@@ -746,18 +746,18 @@ const StudentDashboard = () => {
         animate={{ opacity: 1, y: 0 }}
         className="bg-card/95 backdrop-blur-md border-b border-border/50 sticky top-0 z-50"
       >
-        <div className="container-wide py-2 sm:py-4 px-2 sm:px-4">
-          <div className="flex items-center justify-between gap-2">
+        <div className="container-wide py-2 sm:py-4 px-3 sm:px-4">
+          <div className="flex items-center justify-between gap-1 sm:gap-2">
             <div className="flex items-center space-x-2 sm:space-x-4 min-w-0 flex-1">
               <div className="relative flex-shrink-0">
                 {studentProfile.photo ? (
                   <img
                     src={studentProfile.photo}
                     alt="Profile"
-                    className="h-8 w-8 sm:h-12 sm:w-12 rounded-full object-cover border-2 border-gold"
+                    className="h-9 w-9 sm:h-12 sm:w-12 rounded-full object-cover border-2 border-gold"
                   />
                 ) : (
-                  <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-gradient-to-r from-royal to-gold flex items-center justify-center">
+                  <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-gradient-to-r from-royal to-gold flex items-center justify-center">
                     <User className="h-4 w-4 sm:h-5 sm:w-5 text-white" />
                   </div>
                 )}
@@ -806,7 +806,7 @@ const StudentDashboard = () => {
               </button>
             </div>
             
-            <div className="flex items-center space-x-4">
+            <div className="flex items-center space-x-1 sm:space-x-4">
               <div className="hidden md:flex items-center space-x-2 text-sm text-muted-foreground">
                 <span>Class {studentData?.class || ""}{studentData?.section || ""}</span>
                 <span>•</span>
@@ -819,11 +819,11 @@ const StudentDashboard = () => {
                   variant="outline"
                   size="sm"
                   onClick={() => setShowStudentNotifications(!showStudentNotifications)}
-                  className="relative p-2"
+                  className="relative h-9 w-9 p-0 sm:h-10 sm:w-10"
                 >
                   <Bell className="h-4 w-4" />
                   {studentNotifications.filter(n => n.status === 'unread').length > 0 && (
-                    <span className="absolute -top-1 -right-1 h-4 w-4 bg-red-500 text-white text-xs rounded-full flex items-center justify-center">
+                    <span className="absolute -top-1 -right-1 h-4 w-4 bg-red-500 text-white text-[10px] rounded-full flex items-center justify-center">
                       {studentNotifications.filter(n => n.status === 'unread').length}
                     </span>
                   )}
@@ -831,33 +831,33 @@ const StudentDashboard = () => {
                 
                 {/* Student Notifications Dropdown */}
                 {showStudentNotifications && (
-                  <div className="absolute right-0 top-full mt-2 w-80 bg-card border border-border rounded-lg shadow-lg z-50 max-h-96 overflow-hidden">
-                    <div className="p-4 border-b border-border">
-                      <h3 className="font-semibold text-foreground">My Notifications</h3>
+                  <div className="absolute right-0 top-full mt-2 w-[calc(100vw-1.5rem)] sm:w-80 max-w-md bg-card border border-border rounded-lg shadow-lg z-50 max-h-96 overflow-hidden">
+                    <div className="p-3 sm:p-4 border-b border-border">
+                      <h3 className="font-semibold text-sm sm:text-base text-foreground">My Notifications</h3>
                     </div>
                     
                     <div className="max-h-80 overflow-y-auto">
                       {studentNotifications.length === 0 ? (
-                        <div className="p-4 text-center text-muted-foreground">
+                        <div className="p-4 text-center text-sm text-muted-foreground">
                           No notifications
                         </div>
                       ) : (
                         studentNotifications
                           .sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime())
                           .map((notification) => (
-                            <div key={notification.id} className="p-4 border-b border-border hover:bg-muted/50">
-                              <div className="flex items-start justify-between mb-2">
-                                <h4 className="text-sm font-medium text-foreground">{notification.subject}</h4>
-                                <span className={`px-2 py-1 rounded text-xs ${
+                            <div key={notification.id} className="p-3 sm:p-4 border-b border-border hover:bg-muted/50">
+                              <div className="flex items-start justify-between mb-2 gap-2">
+                                <h4 className="text-xs sm:text-sm font-medium text-foreground flex-1 min-w-0">{notification.subject}</h4>
+                                <span className={`px-2 py-1 rounded text-[10px] sm:text-xs flex-shrink-0 ${
                                   notification.status === 'unread' ? 'bg-blue-500/20 text-blue-400' : 'bg-muted text-muted-foreground'
                                 }`}>
                                   {notification.status === 'unread' ? 'New' : 'Read'}
                                 </span>
                               </div>
-                              <p className="text-xs text-blue-400 mb-2">
+                              <p className="text-[10px] sm:text-xs text-blue-400 mb-2">
                                 From: {notification.senderName} ({notification.senderType})
                               </p>
-                              <p className="text-xs text-muted-foreground mb-2">{notification.message}</p>
+                              <p className="text-[10px] sm:text-xs text-muted-foreground mb-2">{notification.message}</p>
                               
                               {/* Photo Attachments */}
                               {(notification.photo1 || notification.photo2) && (
@@ -866,9 +866,8 @@ const StudentDashboard = () => {
                                     <img 
                                       src={notification.photo1} 
                                       alt="Attachment 1" 
-                                      className="w-16 h-16 object-cover rounded border cursor-pointer hover:opacity-80"
+                                      className="w-14 h-14 sm:w-16 sm:h-16 object-cover rounded border cursor-pointer hover:opacity-80"
                                       onClick={() => {
-                                        // Create a new window to display the base64 image
                                         const newWindow = window.open();
                                         if (newWindow) {
                                           newWindow.document.write(`<img src="${notification.photo1}" style="max-width: 100%; max-height: 100%; object-fit: contain;" />`);
@@ -880,9 +879,8 @@ const StudentDashboard = () => {
                                     <img 
                                       src={notification.photo2} 
                                       alt="Attachment 2" 
-                                      className="w-16 h-16 object-cover rounded border cursor-pointer hover:opacity-80"
+                                      className="w-14 h-14 sm:w-16 sm:h-16 object-cover rounded border cursor-pointer hover:opacity-80"
                                       onClick={() => {
-                                        // Create a new window to display the base64 image
                                         const newWindow = window.open();
                                         if (newWindow) {
                                           newWindow.document.write(`<img src="${notification.photo2}" style="max-width: 100%; max-height: 100%; object-fit: contain;" />`);
@@ -893,11 +891,11 @@ const StudentDashboard = () => {
                                 </div>
                               )}
                               
-                              <p className="text-xs text-muted-foreground">
+                              <p className="text-[10px] sm:text-xs text-muted-foreground">
                                 {new Date(notification.createdAt).toLocaleDateString()}
                               </p>
-                              <div className="flex items-center justify-between mt-2">
-                                <span className="text-xs text-muted-foreground">
+                              <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between mt-2 gap-2">
+                                <span className="text-[10px] sm:text-xs text-muted-foreground">
                                   Target: {notification.targetType === 'all' ? 'All Students' : 
                                           notification.targetType === 'class' ? `Class ${notification.targetClass}` :
                                           notification.targetType === 'section' ? `Class ${notification.targetClass}-${notification.targetSection}` :
@@ -908,20 +906,18 @@ const StudentDashboard = () => {
                                     variant="ghost"
                                     size="sm"
                                     onClick={() => {
-                                      // Mark as read
                                       const updatedNotifications = studentNotifications.map(n => 
                                         n.id === notification.id ? { ...n, status: 'read' } : n
                                       );
                                       setStudentNotifications(updatedNotifications);
                                       
-                                      // Update localStorage
                                       const allNotifications = JSON.parse(localStorage.getItem('royal-academy-student-notifications') || '[]');
                                       const updatedAllNotifications = allNotifications.map((n: any) => 
                                         n.id === notification.id ? { ...n, status: 'read' } : n
                                       );
                                       localStorage.setItem('royal-academy-student-notifications', JSON.stringify(updatedAllNotifications));
                                     }}
-                                    className="h-6 px-2 text-xs text-blue-600 hover:text-blue-700"
+                                    className="h-7 sm:h-8 px-2 sm:px-3 text-[10px] sm:text-xs text-blue-600 hover:text-blue-700"
                                   >
                                     Mark as Read
                                   </Button>
@@ -939,7 +935,7 @@ const StudentDashboard = () => {
                 variant="outline"
                 size="sm"
                 onClick={handleLogout}
-                className="flex items-center space-x-2"
+                className="flex items-center space-x-1 sm:space-x-2 h-9 sm:h-10 px-2 sm:px-3"
               >
                 <LogOut className="h-4 w-4" />
                 <span className="hidden sm:inline">Logout</span>
@@ -1150,7 +1146,7 @@ const StudentDashboard = () => {
             </div>
 
             {studentReports.length > 0 ? (
-              <div className="space-y-4">
+              <div className="space-y-3 sm:space-y-4">
                 {studentReports
                   .sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime())
                   .map((report) => (
@@ -1158,25 +1154,25 @@ const StudentDashboard = () => {
                       key={report.id}
                       initial={{ opacity: 0, y: 10 }}
                       animate={{ opacity: 1, y: 0 }}
-                      className="bg-muted/20 rounded-lg p-4 border border-border/30"
+                      className="bg-muted/20 rounded-lg p-3 sm:p-4 border border-border/30"
                     >
-                      <div className="flex items-start justify-between mb-3">
-                        <div>
-                          <h4 className="font-semibold text-foreground">
+                      <div className="flex flex-col sm:flex-row items-start justify-between mb-3 gap-2">
+                        <div className="min-w-0 flex-1">
+                          <h4 className="font-semibold text-sm sm:text-base text-foreground">
                             {report.subject} Report
                           </h4>
-                          <p className="text-sm text-muted-foreground">
+                          <p className="text-xs sm:text-sm text-muted-foreground truncate">
                             From: {report.teacherName} • {new Date(report.createdAt).toLocaleDateString()}
                           </p>
                         </div>
-                        <div className="text-xs bg-royal/10 text-royal px-2 py-1 rounded">
+                        <div className="text-[10px] sm:text-xs bg-royal/10 text-royal px-2 py-1 rounded flex-shrink-0">
                           New Report
                         </div>
                       </div>
 
                       {/* Report Image */}
                       {report.reportImage && (
-                        <div className="mb-4">
+                        <div className="mb-3 sm:mb-4">
                           <img
                             src={report.reportImage}
                             alt="Report"
@@ -1189,7 +1185,7 @@ const StudentDashboard = () => {
                               setShowImageModal(true);
                             }}
                           />
-                          <p className="text-xs text-muted-foreground text-center mt-2">
+                          <p className="text-[10px] sm:text-xs text-muted-foreground text-center mt-2">
                             Click image to view full size
                           </p>
                         </div>
@@ -1197,11 +1193,11 @@ const StudentDashboard = () => {
 
                       {/* Teacher Notes */}
                       {report.notes && (
-                        <div className="bg-muted/30 rounded-lg p-3">
-                          <h5 className="text-sm font-medium text-foreground mb-2">
+                        <div className="bg-muted/30 rounded-lg p-2 sm:p-3">
+                          <h5 className="text-xs sm:text-sm font-medium text-foreground mb-1 sm:mb-2">
                             Teacher's Notes:
                           </h5>
-                          <p className="text-sm text-muted-foreground">
+                          <p className="text-xs sm:text-sm text-muted-foreground">
                             {report.notes}
                           </p>
                         </div>
@@ -1210,21 +1206,21 @@ const StudentDashboard = () => {
                   ))}
               </div>
             ) : (
-              <div className="text-center py-12">
-                <FileText className="h-16 w-16 mx-auto mb-4 text-muted-foreground opacity-50" />
-                <h4 className="text-lg font-semibold text-foreground mb-2">
+              <div className="text-center py-8 sm:py-12">
+                <FileText className="h-12 w-12 sm:h-16 sm:w-16 mx-auto mb-3 sm:mb-4 text-muted-foreground opacity-50" />
+                <h4 className="text-base sm:text-lg font-semibold text-foreground mb-2">
                   No Reports Currently
                 </h4>
-                <p className="text-muted-foreground">
+                <p className="text-sm sm:text-base text-muted-foreground">
                   Your teachers haven't sent any reports yet. Check back later!
                 </p>
               </div>
             )}
 
-            <div className="mt-6 pt-4 border-t border-border/30">
+            <div className="mt-4 sm:mt-6 pt-3 sm:pt-4 border-t border-border/30">
               <Button
                 onClick={() => setShowGradesModal(false)}
-                className="w-full bg-gradient-to-r from-royal to-gold text-white"
+                className="w-full h-11 bg-gradient-to-r from-royal to-gold text-white"
               >
                 Close
               </Button>
@@ -1241,9 +1237,9 @@ const StudentDashboard = () => {
             animate={{ opacity: 1, scale: 1 }}
             className="bg-card rounded-xl p-4 sm:p-6 w-full max-w-5xl max-h-[85vh] overflow-y-auto border border-border/50"
           >
-            <div className="flex items-center justify-between mb-4 sm:mb-6">
-              <div className="flex items-center space-x-4">
-                <h3 className="text-xl font-heading font-bold text-foreground">My Attendance</h3>
+            <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between mb-4 sm:mb-6 gap-3">
+              <h3 className="text-lg sm:text-xl font-heading font-bold text-foreground">My Attendance</h3>
+              <div className="flex items-center justify-between w-full sm:w-auto gap-2">
                 <div className="flex items-center space-x-2">
                   <Button
                     variant="outline"
@@ -1253,11 +1249,12 @@ const StudentDashboard = () => {
                       newDate.setMonth(newDate.getMonth() - 1);
                       setCurrentCalendarDate(newDate);
                     }}
+                    className="h-8 w-8 p-0"
                   >
                     ←
                   </Button>
-                  <span className="text-lg font-medium min-w-[150px] text-center">
-                    {currentCalendarDate.toLocaleDateString('en-US', { month: 'long', year: 'numeric' })}
+                  <span className="text-sm sm:text-base font-medium min-w-[120px] sm:min-w-[150px] text-center">
+                    {currentCalendarDate.toLocaleDateString('en-US', { month: 'short', year: 'numeric' })}
                   </span>
                   <Button
                     variant="outline"
@@ -1267,54 +1264,57 @@ const StudentDashboard = () => {
                       newDate.setMonth(newDate.getMonth() + 1);
                       setCurrentCalendarDate(newDate);
                     }}
+                    className="h-8 w-8 p-0"
                   >
                     →
                   </Button>
                 </div>
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  onClick={() => setShowAttendanceModal(false)}
+                  className="h-8 w-8 p-0"
+                >
+                  <X className="h-4 w-4" />
+                </Button>
               </div>
-              <Button
-                variant="ghost"
-                size="sm"
-                onClick={() => setShowAttendanceModal(false)}
-              >
-                <X className="h-4 w-4" />
-              </Button>
             </div>
 
             {/* Legend */}
-            <div className="mb-6 p-4 bg-muted/20 rounded-lg border border-border/30">
-              <h4 className="font-semibold mb-3 text-foreground">Attendance Legend:</h4>
-              <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-sm">
+            <div className="mb-4 sm:mb-6 p-3 sm:p-4 bg-muted/20 rounded-lg border border-border/30">
+              <h4 className="font-semibold mb-2 sm:mb-3 text-sm sm:text-base text-foreground">Attendance Legend:</h4>
+              <div className="grid grid-cols-2 gap-2 sm:gap-4 text-xs sm:text-sm">
                 <div className="flex items-center space-x-2">
-                  <div className="w-4 h-4 bg-green-500 rounded"></div>
+                  <div className="w-3 h-3 sm:w-4 sm:h-4 bg-green-500 rounded flex-shrink-0"></div>
                   <span className="text-foreground">Present</span>
                 </div>
                 <div className="flex items-center space-x-2">
-                  <div className="w-4 h-4 bg-red-500 rounded-full"></div>
+                  <div className="w-3 h-3 sm:w-4 sm:h-4 bg-red-500 rounded-full flex-shrink-0"></div>
                   <span className="text-foreground">Absent</span>
                 </div>
                 <div className="flex items-center space-x-2">
-                  <div className="w-0 h-0 border-l-2 border-r-2 border-b-4 border-l-transparent border-r-transparent border-b-gray-400"></div>
+                  <div className="w-0 h-0 border-l-2 border-r-2 border-b-4 border-l-transparent border-r-transparent border-b-gray-400 flex-shrink-0"></div>
                   <span className="text-foreground ml-2">Not Updated</span>
                 </div>
                 <div className="flex items-center space-x-2">
-                  <div className="w-4 h-4 bg-blue-500 rounded"></div>
+                  <div className="w-3 h-3 sm:w-4 sm:h-4 bg-blue-500 rounded flex-shrink-0"></div>
                   <span className="text-foreground">Holiday</span>
                 </div>
               </div>
             </div>
 
             {/* Monthly Calendar */}
-            <div className="overflow-x-auto">
-              <div className="min-w-full">
-                <h4 className="font-semibold mb-4 text-foreground">Monthly Attendance Calendar</h4>
+            <div className="overflow-x-auto -mx-3 sm:mx-0">
+              <div className="min-w-[320px] px-3 sm:px-0">
+                <h4 className="font-semibold mb-3 sm:mb-4 text-sm sm:text-base text-foreground">Monthly Attendance Calendar</h4>
                 
                 {/* Calendar Grid */}
-                <div className="grid grid-cols-7 gap-2 mb-4">
+                <div className="grid grid-cols-7 gap-1 sm:gap-2 mb-4">
                   {/* Day Headers */}
-                  {['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'].map(day => (
-                    <div key={day} className="text-center font-semibold text-sm text-muted-foreground py-2">
-                      {day}
+                  {['S', 'M', 'T', 'W', 'T', 'F', 'S'].map((day, idx) => (
+                    <div key={idx} className="text-center font-semibold text-[10px] sm:text-sm text-muted-foreground py-1 sm:py-2">
+                      <span className="hidden sm:inline">{['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'][idx]}</span>
+                      <span className="sm:hidden">{day}</span>
                     </div>
                   ))}
                   
@@ -1343,11 +1343,11 @@ const StudentDashboard = () => {
                     return (
                       <div
                         key={index}
-                        className={`relative h-12 border border-border/30 rounded-lg flex items-center justify-center text-sm ${
+                        className={`relative h-10 sm:h-12 border border-border/30 rounded-md sm:rounded-lg flex items-center justify-center text-xs sm:text-sm ${
                           !isCurrentMonth ? 'text-muted-foreground/50 bg-muted/10' : 'bg-card'
-                        } ${isToday ? 'ring-2 ring-gold' : ''}`}
+                        } ${isToday ? 'ring-1 sm:ring-2 ring-gold' : ''}`}
                       >
-                        <span className={`absolute top-1 left-1 text-xs ${
+                        <span className={`absolute top-0.5 left-0.5 sm:top-1 sm:left-1 text-[9px] sm:text-xs ${
                           !isCurrentMonth ? 'text-muted-foreground/50' : 'text-foreground'
                         }`}>
                           {currentDate.getDate()}
@@ -1357,17 +1357,17 @@ const StudentDashboard = () => {
                         {isCurrentMonth && (
                           <div className="flex items-center justify-center">
                             {isSunday || customHolidays.includes(dateStr) ? (
-                              <div className="w-6 h-6 bg-blue-500 rounded" title={isSunday ? "Sunday - Holiday" : "Holiday"}></div>
+                              <div className="w-4 h-4 sm:w-6 sm:h-6 bg-blue-500 rounded" title={isSunday ? "Sunday - Holiday" : "Holiday"}></div>
                             ) : studentAttendance ? (
                               studentAttendance.status === 'present' ? (
-                                <div className="w-6 h-6 bg-green-500 rounded" title="Present"></div>
+                                <div className="w-4 h-4 sm:w-6 sm:h-6 bg-green-500 rounded" title="Present"></div>
                               ) : studentAttendance.status === 'absent' ? (
-                                <div className="w-6 h-6 bg-red-500 rounded-full" title="Absent"></div>
+                                <div className="w-4 h-4 sm:w-6 sm:h-6 bg-red-500 rounded-full" title="Absent"></div>
                               ) : (
-                                <div className="w-6 h-6 bg-yellow-500 rounded" title="Late"></div>
+                                <div className="w-4 h-4 sm:w-6 sm:h-6 bg-yellow-500 rounded" title="Late"></div>
                               )
                             ) : (
-                              <div className="w-0 h-0 border-l-3 border-r-3 border-b-6 border-l-transparent border-r-transparent border-b-gray-400" title="Not Updated"></div>
+                              <div className="w-0 h-0 border-l-2 border-r-2 border-b-4 sm:border-l-3 sm:border-r-3 sm:border-b-6 border-l-transparent border-r-transparent border-b-gray-400" title="Not Updated"></div>
                             )}
                           </div>
                         )}
@@ -1379,30 +1379,30 @@ const StudentDashboard = () => {
             </div>
 
             {/* Attendance Statistics */}
-            <div className="mt-6 grid grid-cols-2 md:grid-cols-4 gap-4">
-              <div className="bg-green-500/10 rounded-lg p-4 text-center border border-green-500/30">
-                <div className="text-2xl font-bold text-green-400">
+            <div className="mt-4 sm:mt-6 grid grid-cols-2 gap-3 sm:gap-4">
+              <div className="bg-green-500/10 rounded-lg p-3 sm:p-4 text-center border border-green-500/30">
+                <div className="text-xl sm:text-2xl font-bold text-green-400">
                   {studentData ? calculateAttendanceStats().present : 0}
                 </div>
-                <div className="text-sm text-green-400">Present Days</div>
+                <div className="text-xs sm:text-sm text-green-400">Present Days</div>
               </div>
-              <div className="bg-red-500/10 rounded-lg p-4 text-center border border-red-500/30">
-                <div className="text-2xl font-bold text-red-400">
+              <div className="bg-red-500/10 rounded-lg p-3 sm:p-4 text-center border border-red-500/30">
+                <div className="text-xl sm:text-2xl font-bold text-red-400">
                   {studentData ? calculateAttendanceStats().absent : 0}
                 </div>
-                <div className="text-sm text-red-400">Absent Days</div>
+                <div className="text-xs sm:text-sm text-red-400">Absent Days</div>
               </div>
-              <div className="bg-blue-500/10 rounded-lg p-4 text-center border border-blue-500/30">
-                <div className="text-2xl font-bold text-blue-400">
+              <div className="bg-blue-500/10 rounded-lg p-3 sm:p-4 text-center border border-blue-500/30">
+                <div className="text-xl sm:text-2xl font-bold text-blue-400">
                   {studentData ? calculateAttendanceStats().holidays : 0}
                 </div>
-                <div className="text-sm text-blue-400">Holidays</div>
+                <div className="text-xs sm:text-sm text-blue-400">Holidays</div>
               </div>
-              <div className="bg-gold/10 rounded-lg p-4 text-center border border-gold/30">
-                <div className="text-2xl font-bold text-gold">
+              <div className="bg-gold/10 rounded-lg p-3 sm:p-4 text-center border border-gold/30">
+                <div className="text-xl sm:text-2xl font-bold text-gold">
                   {studentData ? calculateAttendanceStats().percentage : 0}%
                 </div>
-                <div className="text-sm text-gold">Attendance Rate</div>
+                <div className="text-xs sm:text-sm text-gold">Attendance Rate</div>
               </div>
             </div>
 
@@ -1426,8 +1426,8 @@ const StudentDashboard = () => {
             animate={{ opacity: 1, scale: 1 }}
             className="bg-card rounded-xl p-4 sm:p-6 w-full max-w-4xl max-h-[85vh] overflow-y-auto border border-border/50"
           >
-            <div className="flex items-center justify-between mb-4 sm:mb-6">
-              <h3 className="text-lg sm:text-xl font-heading font-bold text-foreground">
+            <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between mb-4 sm:mb-6 gap-2">
+              <h3 className="text-base sm:text-xl font-heading font-bold text-foreground">
                 My Assignments & Homework
               </h3>
               <div className="flex items-center space-x-2">
@@ -1435,7 +1435,7 @@ const StudentDashboard = () => {
                   variant="outline"
                   size="sm"
                   onClick={loadAssignments}
-                  className="text-xs"
+                  className="text-xs h-8"
                 >
                   🔄 Refresh
                 </Button>
@@ -1443,6 +1443,7 @@ const StudentDashboard = () => {
                   variant="ghost"
                   size="sm"
                   onClick={() => setShowAssignmentsModal(false)}
+                  className="h-8 w-8 p-0"
                 >
                   <X className="h-4 w-4" />
                 </Button>
@@ -1450,7 +1451,7 @@ const StudentDashboard = () => {
             </div>
 
             {assignments.length > 0 ? (
-              <div className="space-y-4">
+              <div className="space-y-3 sm:space-y-4">
                 {assignments
                   .sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime())
                   .map((assignment) => (
@@ -1458,29 +1459,29 @@ const StudentDashboard = () => {
                       key={assignment.id}
                       initial={{ opacity: 0, y: 10 }}
                       animate={{ opacity: 1, y: 0 }}
-                      className="bg-muted/20 rounded-lg p-6 border border-border/30"
+                      className="bg-muted/20 rounded-lg p-3 sm:p-6 border border-border/30"
                     >
-                      <div className="flex items-start justify-between mb-4">
-                        <div className="flex-1">
-                          <h4 className="text-lg font-semibold text-foreground mb-2">
+                      <div className="flex flex-col sm:flex-row items-start justify-between mb-3 sm:mb-4 gap-2">
+                        <div className="flex-1 min-w-0 w-full">
+                          <h4 className="text-sm sm:text-lg font-semibold text-foreground mb-2">
                             {assignment.title}
                           </h4>
-                          <div className="flex items-center space-x-4 text-sm text-muted-foreground mb-3">
+                          <div className="flex flex-col sm:flex-row sm:items-center sm:space-x-4 space-y-1 sm:space-y-0 text-xs sm:text-sm text-muted-foreground mb-2 sm:mb-3">
                             <span className="flex items-center">
-                              <BookOpen className="h-4 w-4 mr-1" />
+                              <BookOpen className="h-3 w-3 sm:h-4 sm:w-4 mr-1" />
                               {assignment.subject}
                             </span>
                             <span className="flex items-center">
-                              <Calendar className="h-4 w-4 mr-1" />
+                              <Calendar className="h-3 w-3 sm:h-4 sm:w-4 mr-1" />
                               Due: {new Date(assignment.dueDate).toLocaleDateString()}
                             </span>
                             <span className="flex items-center">
-                              <Clock className="h-4 w-4 mr-1" />
-                              Assigned: {new Date(assignment.createdAt).toLocaleDateString()}
+                              <Clock className="h-3 w-3 sm:h-4 sm:w-4 mr-1" />
+                              {new Date(assignment.createdAt).toLocaleDateString()}
                             </span>
                           </div>
                         </div>
-                        <div className={`px-3 py-1 rounded-full text-xs font-medium ${
+                        <div className={`px-2 sm:px-3 py-1 rounded-full text-[10px] sm:text-xs font-medium flex-shrink-0 ${
                           new Date(assignment.dueDate) < new Date() 
                             ? 'bg-red-500/10 text-red-400 border border-red-500/30'
                             : new Date(assignment.dueDate).getTime() - new Date().getTime() < 24 * 60 * 60 * 1000
@@ -1497,20 +1498,20 @@ const StudentDashboard = () => {
                       </div>
 
                       {/* Assignment Description */}
-                      <div className="mb-4">
-                        <p className="text-foreground leading-relaxed">
+                      <div className="mb-3 sm:mb-4">
+                        <p className="text-xs sm:text-base text-foreground leading-relaxed">
                           {assignment.description}
                         </p>
                       </div>
 
                       {/* Attachments */}
                       {assignment.attachments && assignment.attachments.length > 0 && (
-                        <div className="mb-4">
-                          <h5 className="font-medium text-foreground mb-2 flex items-center">
-                            <FileText className="h-4 w-4 mr-1" />
+                        <div className="mb-3 sm:mb-4">
+                          <h5 className="font-medium text-xs sm:text-sm text-foreground mb-2 flex items-center">
+                            <FileText className="h-3 w-3 sm:h-4 sm:w-4 mr-1" />
                             Attachments ({assignment.attachments.length})
                           </h5>
-                          <div className="grid grid-cols-2 md:grid-cols-3 gap-2">
+                          <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
                             {assignment.attachments.map((attachment: string, index: number) => (
                               <div
                                 key={index}
@@ -1526,12 +1527,12 @@ const StudentDashboard = () => {
                                 <img
                                   src={attachment}
                                   alt={`Attachment ${index + 1}`}
-                                  className="w-full h-24 object-cover rounded-lg border border-border/30 group-hover:opacity-80 transition-opacity"
+                                  className="w-full h-20 sm:h-24 object-cover rounded-lg border border-border/30 group-hover:opacity-80 transition-opacity"
                                 />
                                 <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 rounded-lg transition-colors flex items-center justify-center">
                                   <div className="opacity-0 group-hover:opacity-100 transition-opacity">
                                     <div className="bg-white/90 rounded-full p-2">
-                                      <FileText className="h-4 w-4 text-gray-800" />
+                                      <FileText className="h-3 w-3 sm:h-4 sm:w-4 text-gray-800" />
                                     </div>
                                   </div>
                                 </div>
@@ -1542,22 +1543,22 @@ const StudentDashboard = () => {
                       )}
 
                       {/* Assignment Footer */}
-                      <div className="flex items-center justify-between pt-4 border-t border-border/30">
-                        <div className="text-sm text-muted-foreground">
+                      <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between pt-3 sm:pt-4 border-t border-border/30 gap-3">
+                        <div className="text-xs sm:text-sm text-muted-foreground">
                           Created by: {assignment.createdBy}
                         </div>
-                        <div className="flex space-x-2">
+                        <div className="flex flex-col sm:flex-row w-full sm:w-auto gap-2">
                           <Button
                             variant="outline"
                             size="sm"
-                            className="text-xs"
+                            className="text-xs h-10 w-full sm:w-auto"
                           >
                             Mark as Complete
                           </Button>
                           <Button
                             variant="default"
                             size="sm"
-                            className="text-xs bg-gradient-to-r from-gold to-yellow-500 text-black"
+                            className="text-xs h-10 w-full sm:w-auto bg-gradient-to-r from-gold to-yellow-500 text-black"
                           >
                             Submit Work
                           </Button>
@@ -1567,19 +1568,19 @@ const StudentDashboard = () => {
                   ))}
               </div>
             ) : (
-              <div className="text-center py-12">
-                <FileText className="h-12 w-12 text-muted-foreground mx-auto mb-4" />
-                <h4 className="text-lg font-medium text-foreground mb-2">No Assignments Yet</h4>
-                <p className="text-muted-foreground">
+              <div className="text-center py-8 sm:py-12">
+                <FileText className="h-10 w-10 sm:h-12 sm:w-12 text-muted-foreground mx-auto mb-3 sm:mb-4" />
+                <h4 className="text-base sm:text-lg font-medium text-foreground mb-2">No Assignments Yet</h4>
+                <p className="text-sm sm:text-base text-muted-foreground">
                   Your teachers haven't assigned any homework or assignments yet.
                 </p>
               </div>
             )}
 
-            <div className="mt-6 pt-4 border-t border-border/30">
+            <div className="mt-4 sm:mt-6 pt-3 sm:pt-4 border-t border-border/30">
               <Button
                 onClick={() => setShowAssignmentsModal(false)}
-                className="w-full bg-gradient-to-r from-royal to-gold text-white"
+                className="w-full h-11 bg-gradient-to-r from-royal to-gold text-white"
               >
                 Close
               </Button>
@@ -1596,8 +1597,8 @@ const StudentDashboard = () => {
             animate={{ opacity: 1, scale: 1 }}
             className="bg-card rounded-xl p-4 sm:p-6 w-full max-w-4xl max-h-[85vh] overflow-y-auto border border-border/50"
           >
-            <div className="flex items-center justify-between mb-4 sm:mb-6">
-              <h3 className="text-lg sm:text-xl font-heading font-bold text-foreground">
+            <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between mb-4 sm:mb-6 gap-2">
+              <h3 className="text-base sm:text-xl font-heading font-bold text-foreground">
                 My Remarks from Teachers
               </h3>
               <div className="flex items-center space-x-2">
@@ -1605,13 +1606,12 @@ const StudentDashboard = () => {
                   variant="outline"
                   size="sm"
                   onClick={() => {
-                    // Force refresh by clearing cache and reloading
                     setStudentRemarks([]);
                     setTimeout(() => {
                       loadStudentRemarks();
                     }, 100);
                   }}
-                  className="text-xs"
+                  className="text-xs h-8"
                 >
                   🔄 Refresh
                 </Button>
@@ -1619,6 +1619,7 @@ const StudentDashboard = () => {
                   variant="ghost"
                   size="sm"
                   onClick={() => setShowRemarksModal(false)}
+                  className="h-8 w-8 p-0"
                 >
                   <X className="h-4 w-4" />
                 </Button>
@@ -1626,20 +1627,20 @@ const StudentDashboard = () => {
             </div>
 
             {studentRemarks.length > 0 ? (
-              <div className="space-y-4">
+              <div className="space-y-3 sm:space-y-4">
                 {/* Summary Cards */}
-                <div className="grid grid-cols-2 gap-4 mb-6">
-                  <div className="bg-green-500/10 rounded-lg p-4 text-center border border-green-500/30">
-                    <div className="text-2xl font-bold text-green-400">
+                <div className="grid grid-cols-2 gap-3 sm:gap-4 mb-4 sm:mb-6">
+                  <div className="bg-green-500/10 rounded-lg p-3 sm:p-4 text-center border border-green-500/30">
+                    <div className="text-xl sm:text-2xl font-bold text-green-400">
                       {studentRemarks.filter(r => r.type === 'good').length}
                     </div>
-                    <div className="text-sm text-green-400">Good Remarks</div>
+                    <div className="text-xs sm:text-sm text-green-400">Good Remarks</div>
                   </div>
-                  <div className="bg-red-500/10 rounded-lg p-4 text-center border border-red-500/30">
-                    <div className="text-2xl font-bold text-red-400">
+                  <div className="bg-red-500/10 rounded-lg p-3 sm:p-4 text-center border border-red-500/30">
+                    <div className="text-xl sm:text-2xl font-bold text-red-400">
                       {studentRemarks.filter(r => r.type === 'bad').length}
                     </div>
-                    <div className="text-sm text-red-400">Areas to Improve</div>
+                    <div className="text-xs sm:text-sm text-red-400">Areas to Improve</div>
                   </div>
                 </div>
 
@@ -1890,69 +1891,69 @@ const StudentDashboard = () => {
             </div>
 
             {/* Fee Overview Stats */}
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
-              <div className="bg-muted/20 rounded-lg p-4 border border-border/30">
+            <div className="grid grid-cols-1 gap-3 sm:gap-4 mb-4 sm:mb-6">
+              <div className="bg-muted/20 rounded-lg p-3 sm:p-4 border border-border/30">
                 <div className="flex items-center space-x-3">
-                  <div className="w-10 h-10 rounded-full bg-green-500/20 flex items-center justify-center">
-                    <CheckCircle className="h-5 w-5 text-green-400" />
+                  <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-green-500/20 flex items-center justify-center flex-shrink-0">
+                    <CheckCircle className="h-4 w-4 sm:h-5 sm:w-5 text-green-400" />
                   </div>
                   <div>
-                    <p className="text-lg font-bold text-foreground">
+                    <p className="text-base sm:text-lg font-bold text-foreground">
                       ₹{getMyFeeStatus().totalPaid}
                     </p>
-                    <p className="text-sm text-muted-foreground">Total Paid</p>
+                    <p className="text-xs sm:text-sm text-muted-foreground">Total Paid</p>
                   </div>
                 </div>
               </div>
               
-              <div className="bg-muted/20 rounded-lg p-4 border border-border/30">
+              <div className="bg-muted/20 rounded-lg p-3 sm:p-4 border border-border/30">
                 <div className="flex items-center space-x-3">
-                  <div className="w-10 h-10 rounded-full bg-yellow-500/20 flex items-center justify-center">
-                    <AlertCircle className="h-5 w-5 text-yellow-400" />
+                  <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-yellow-500/20 flex items-center justify-center flex-shrink-0">
+                    <AlertCircle className="h-4 w-4 sm:h-5 sm:w-5 text-yellow-400" />
                   </div>
                   <div>
-                    <p className="text-lg font-bold text-foreground">
+                    <p className="text-base sm:text-lg font-bold text-foreground">
                       ₹{getMyFeeStatus().totalPending}
                     </p>
-                    <p className="text-sm text-muted-foreground">Total Pending</p>
+                    <p className="text-xs sm:text-sm text-muted-foreground">Total Pending</p>
                   </div>
                 </div>
               </div>
               
-              <div className="bg-muted/20 rounded-lg p-4 border border-border/30">
+              <div className="bg-muted/20 rounded-lg p-3 sm:p-4 border border-border/30">
                 <div className="flex items-center space-x-3">
-                  <div className="w-10 h-10 rounded-full bg-blue-500/20 flex items-center justify-center">
-                    <CalendarIcon className="h-5 w-5 text-blue-400" />
+                  <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-blue-500/20 flex items-center justify-center flex-shrink-0">
+                    <CalendarIcon className="h-4 w-4 sm:h-5 sm:w-5 text-blue-400" />
                   </div>
                   <div>
-                    <p className="text-lg font-bold text-foreground">
+                    <p className="text-base sm:text-lg font-bold text-foreground">
                       {getMyFeeStatus().pendingFees.length}
                     </p>
-                    <p className="text-sm text-muted-foreground">Pending Months</p>
+                    <p className="text-xs sm:text-sm text-muted-foreground">Pending Months</p>
                   </div>
                 </div>
               </div>
             </div>
 
             {/* Payment Requests */}
-            <div className="mb-6">
-              <h4 className="text-lg font-semibold text-foreground mb-4">Payment Requests</h4>
+            <div className="mb-4 sm:mb-6">
+              <h4 className="text-base sm:text-lg font-semibold text-foreground mb-3 sm:mb-4">Payment Requests</h4>
               {paymentRequests.length > 0 ? (
                 <div className="space-y-3">
                   {paymentRequests
                     .sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime())
                     .map((request) => (
-                      <div key={request.id} className="bg-muted/20 rounded-lg p-4 border border-border/30">
-                        <div className="flex items-center justify-between mb-3">
-                          <div>
-                            <h5 className="font-semibold text-foreground">
+                      <div key={request.id} className="bg-muted/20 rounded-lg p-3 sm:p-4 border border-border/30">
+                        <div className="flex flex-col sm:flex-row sm:items-center justify-between mb-3 gap-2">
+                          <div className="min-w-0 flex-1">
+                            <h5 className="font-semibold text-sm sm:text-base text-foreground">
                               Payment Request - ₹{request.amount}
                             </h5>
-                            <p className="text-sm text-muted-foreground">
+                            <p className="text-xs sm:text-sm text-muted-foreground truncate">
                               From: {request.teacherName} • {new Date(request.createdAt).toLocaleDateString()}
                             </p>
                           </div>
-                          <span className={`px-2 py-1 rounded text-xs font-medium ${
+                          <span className={`px-2 py-1 rounded text-[10px] sm:text-xs font-medium self-start sm:self-auto flex-shrink-0 ${
                             request.status === 'paid'
                               ? 'bg-green-500/20 text-green-400'
                               : 'bg-yellow-500/20 text-yellow-400'
@@ -1962,11 +1963,11 @@ const StudentDashboard = () => {
                         </div>
                         
                         <div className="mb-3">
-                          <p className="text-sm text-muted-foreground mb-2">
+                          <p className="text-xs sm:text-sm text-muted-foreground mb-2">
                             Months: {request.months.join(', ')}
                           </p>
                           {request.notes && (
-                            <p className="text-sm text-muted-foreground bg-muted/30 p-2 rounded">
+                            <p className="text-xs sm:text-sm text-muted-foreground bg-muted/30 p-2 rounded">
                               Note: {request.notes}
                             </p>
                           )}
@@ -1975,7 +1976,7 @@ const StudentDashboard = () => {
                         {request.status === 'pending' && (
                           <Button
                             onClick={() => handlePayFees(request)}
-                            className="bg-gradient-to-r from-green-500 to-emerald-500 text-white"
+                            className="bg-gradient-to-r from-green-500 to-emerald-500 text-white w-full sm:w-auto h-11"
                             size="sm"
                           >
                             <DollarSign className="h-4 w-4 mr-2" />
@@ -1987,35 +1988,35 @@ const StudentDashboard = () => {
                   }
                 </div>
               ) : (
-                <div className="text-center py-8">
-                  <CreditCard className="h-12 w-12 mx-auto text-muted-foreground mb-4" />
-                  <p className="text-muted-foreground">No payment requests found</p>
-                  <p className="text-sm text-muted-foreground">Your teacher will send payment requests when fees are due</p>
+                <div className="text-center py-6 sm:py-8">
+                  <CreditCard className="h-10 w-10 sm:h-12 sm:w-12 mx-auto text-muted-foreground mb-3 sm:mb-4" />
+                  <p className="text-sm sm:text-base text-muted-foreground">No payment requests found</p>
+                  <p className="text-xs sm:text-sm text-muted-foreground">Your teacher will send payment requests when fees are due</p>
                 </div>
               )}
             </div>
 
             {/* Fee History */}
             <div>
-              <h4 className="text-lg font-semibold text-foreground mb-4">Fee History ({currentYear})</h4>
+              <h4 className="text-base sm:text-lg font-semibold text-foreground mb-3 sm:mb-4">Fee History ({currentYear})</h4>
               {feeRecords.length > 0 ? (
-                <div className="space-y-3">
+                <div className="space-y-2 sm:space-y-3">
                   {feeRecords
                     .sort((a, b) => {
                       const monthOrder = months.indexOf(a.month) - months.indexOf(b.month);
                       return monthOrder;
                     })
                     .map((fee) => (
-                      <div key={fee.id} className="flex items-center justify-between p-3 border border-border/30 rounded-lg">
-                        <div>
-                          <p className="font-medium text-foreground">{fee.month} {fee.year}</p>
-                          <p className="text-sm text-muted-foreground">₹{fee.amount}</p>
+                      <div key={fee.id} className="flex items-start sm:items-center justify-between p-3 border border-border/30 rounded-lg gap-3">
+                        <div className="min-w-0 flex-1">
+                          <p className="font-medium text-sm sm:text-base text-foreground">{fee.month} {fee.year}</p>
+                          <p className="text-xs sm:text-sm text-muted-foreground">₹{fee.amount}</p>
                           {fee.notes && (
-                            <p className="text-xs text-muted-foreground mt-1">{fee.notes}</p>
+                            <p className="text-xs text-muted-foreground mt-1 line-clamp-2">{fee.notes}</p>
                           )}
                         </div>
-                        <div className="text-right">
-                          <span className={`px-2 py-1 rounded text-xs font-medium ${
+                        <div className="text-right flex-shrink-0">
+                          <span className={`px-2 py-1 rounded text-[10px] sm:text-xs font-medium whitespace-nowrap ${
                             fee.status === 'paid' 
                               ? 'bg-green-500/20 text-green-400'
                               : fee.status === 'pending'
@@ -2025,7 +2026,7 @@ const StudentDashboard = () => {
                             {fee.status.toUpperCase()}
                           </span>
                           {fee.paymentDate && (
-                            <p className="text-xs text-muted-foreground mt-1">
+                            <p className="text-[10px] sm:text-xs text-muted-foreground mt-1">
                               Paid: {new Date(fee.paymentDate).toLocaleDateString()}
                             </p>
                           )}
@@ -2035,10 +2036,10 @@ const StudentDashboard = () => {
                   }
                 </div>
               ) : (
-                <div className="text-center py-8">
-                  <CalendarIcon className="h-12 w-12 mx-auto text-muted-foreground mb-4" />
-                  <p className="text-muted-foreground">No fee records found</p>
-                  <p className="text-sm text-muted-foreground">Fee records will appear here when your teacher creates them</p>
+                <div className="text-center py-6 sm:py-8">
+                  <CalendarIcon className="h-10 w-10 sm:h-12 sm:w-12 mx-auto text-muted-foreground mb-3 sm:mb-4" />
+                  <p className="text-sm sm:text-base text-muted-foreground">No fee records found</p>
+                  <p className="text-xs sm:text-sm text-muted-foreground">Fee records will appear here when your teacher creates them</p>
                 </div>
               )}
             </div>
@@ -2183,14 +2184,14 @@ const StudentDashboard = () => {
 
       {/* Payment Modal */}
       {showPaymentModal && selectedPaymentRequest && (
-        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
+        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-3 sm:p-4">
           <motion.div
             initial={{ opacity: 0, scale: 0.9 }}
             animate={{ opacity: 1, scale: 1 }}
-            className="bg-card rounded-xl p-6 w-full max-w-md border border-border/50"
+            className="bg-card rounded-xl p-4 sm:p-6 w-full max-w-md max-h-[90vh] overflow-y-auto border border-border/50"
           >
             <div className="flex items-center justify-between mb-4">
-              <h3 className="text-lg font-semibold text-foreground">
+              <h3 className="text-base sm:text-lg font-semibold text-foreground">
                 Pay Fees Online
               </h3>
               <Button
@@ -2201,31 +2202,32 @@ const StudentDashboard = () => {
                   setSelectedPaymentRequest(null);
                   setPaymentForm({ amount: '', paymentMethod: 'online', notes: '' });
                 }}
+                className="h-8 w-8 p-0"
               >
                 <X className="h-4 w-4" />
               </Button>
             </div>
 
-            <div className="space-y-4">
+            <div className="space-y-3 sm:space-y-4">
               {/* Payment Summary */}
-              <div className="bg-muted/20 rounded-lg p-4">
-                <h4 className="font-semibold text-foreground mb-2">Payment Summary</h4>
-                <div className="space-y-2 text-sm">
-                  <div className="flex justify-between">
+              <div className="bg-muted/20 rounded-lg p-3 sm:p-4">
+                <h4 className="font-semibold text-sm sm:text-base text-foreground mb-2">Payment Summary</h4>
+                <div className="space-y-2 text-xs sm:text-sm">
+                  <div className="flex justify-between gap-2">
                     <span className="text-muted-foreground">Amount:</span>
                     <span className="font-medium text-foreground">₹{selectedPaymentRequest.amount}</span>
                   </div>
-                  <div className="flex justify-between">
-                    <span className="text-muted-foreground">Months:</span>
-                    <span className="font-medium text-foreground">{selectedPaymentRequest.months.join(', ')}</span>
+                  <div className="flex justify-between gap-2">
+                    <span className="text-muted-foreground flex-shrink-0">Months:</span>
+                    <span className="font-medium text-foreground text-right">{selectedPaymentRequest.months.join(', ')}</span>
                   </div>
-                  <div className="flex justify-between">
-                    <span className="text-muted-foreground">From:</span>
-                    <span className="font-medium text-foreground">{selectedPaymentRequest.teacherName}</span>
+                  <div className="flex justify-between gap-2">
+                    <span className="text-muted-foreground flex-shrink-0">From:</span>
+                    <span className="font-medium text-foreground text-right truncate">{selectedPaymentRequest.teacherName}</span>
                   </div>
                 </div>
                 {selectedPaymentRequest.notes && (
-                  <div className="mt-3 p-2 bg-muted/30 rounded text-sm">
+                  <div className="mt-2 sm:mt-3 p-2 bg-muted/30 rounded text-xs sm:text-sm">
                     <span className="text-muted-foreground">Note: </span>
                     <span className="text-foreground">{selectedPaymentRequest.notes}</span>
                   </div>
@@ -2234,8 +2236,8 @@ const StudentDashboard = () => {
 
               {/* Payment Method */}
               <div>
-                <label className="block text-sm font-medium mb-2">Payment Method</label>
-                <div className="grid grid-cols-2 gap-3">
+                <label className="block text-xs sm:text-sm font-medium mb-2">Payment Method</label>
+                <div className="grid grid-cols-2 gap-2 sm:gap-3">
                   {[
                     { id: 'razorpay', name: 'Razorpay', icon: '💳', color: 'from-blue-500 to-blue-600' },
                     { id: 'paypal', name: 'PayPal', icon: '🅿️', color: 'from-blue-600 to-blue-700' },
@@ -2246,16 +2248,16 @@ const StudentDashboard = () => {
                       key={method.id}
                       type="button"
                       onClick={() => setPaymentForm({ ...paymentForm, paymentMethod: method.id })}
-                      className={`p-3 rounded-lg border-2 transition-all ${
+                      className={`p-2 sm:p-3 rounded-lg border-2 transition-all min-h-[44px] ${
                         paymentForm.paymentMethod === method.id
                           ? 'border-gold bg-gold/10'
                           : 'border-border/30 hover:border-border'
                       }`}
                     >
-                      <div className={`w-8 h-8 rounded-lg bg-gradient-to-r ${method.color} flex items-center justify-center mx-auto mb-2`}>
-                        <span className="text-white text-sm">{method.icon}</span>
+                      <div className={`w-7 h-7 sm:w-8 sm:h-8 rounded-lg bg-gradient-to-r ${method.color} flex items-center justify-center mx-auto mb-1 sm:mb-2`}>
+                        <span className="text-white text-xs sm:text-sm">{method.icon}</span>
                       </div>
-                      <p className="text-xs font-medium text-foreground">{method.name}</p>
+                      <p className="text-[10px] sm:text-xs font-medium text-foreground">{method.name}</p>
                     </button>
                   ))}
                 </div>
@@ -2263,25 +2265,26 @@ const StudentDashboard = () => {
 
               {/* Amount Confirmation */}
               <div>
-                <label className="block text-sm font-medium mb-2">Amount to Pay (₹)</label>
+                <label className="block text-xs sm:text-sm font-medium mb-2">Amount to Pay (₹)</label>
                 <Input
                   type="number"
                   value={paymentForm.amount}
                   onChange={(e) => setPaymentForm({ ...paymentForm, amount: e.target.value })}
                   placeholder="Enter amount"
                   disabled
-                  className="bg-muted/20"
+                  className="bg-muted/20 text-sm sm:text-base h-10 sm:h-11"
                 />
               </div>
 
               {/* Payment Notes */}
               <div>
-                <label className="block text-sm font-medium mb-2">Payment Notes (Optional)</label>
+                <label className="block text-xs sm:text-sm font-medium mb-2">Payment Notes (Optional)</label>
                 <Textarea
                   value={paymentForm.notes}
                   onChange={(e) => setPaymentForm({ ...paymentForm, notes: e.target.value })}
                   placeholder="Add any notes for this payment..."
                   rows={3}
+                  className="text-sm sm:text-base"
                 />
               </div>
 
@@ -2333,7 +2336,7 @@ const StudentDashboard = () => {
               )}
 
               {/* Action Buttons */}
-              <div className="flex space-x-2 pt-2">
+              <div className="flex flex-col sm:flex-row gap-2 pt-2">
                 <Button
                   variant="outline"
                   onClick={() => {
@@ -2341,22 +2344,22 @@ const StudentDashboard = () => {
                     setSelectedPaymentRequest(null);
                     setPaymentForm({ amount: '', paymentMethod: 'online', notes: '' });
                   }}
-                  className="flex-1"
+                  className="flex-1 h-11"
                 >
                   Cancel
                 </Button>
                 <Button
                   onClick={processPayment}
-                  className={`flex-1 text-white ${
+                  className={`flex-1 h-11 text-white ${
                     paymentForm.paymentMethod === 'razorpay' ? 'bg-gradient-to-r from-blue-500 to-blue-600' :
                     paymentForm.paymentMethod === 'paypal' ? 'bg-gradient-to-r from-blue-600 to-blue-700' :
                     'bg-gradient-to-r from-green-500 to-emerald-500'
                   }`}
                 >
                   <DollarSign className="h-4 w-4 mr-2" />
-                  Pay with {paymentForm.paymentMethod === 'razorpay' ? 'Razorpay' : 
+                  <span className="text-sm sm:text-base">Pay with {paymentForm.paymentMethod === 'razorpay' ? 'Razorpay' : 
                            paymentForm.paymentMethod === 'paypal' ? 'PayPal' : 
-                           paymentForm.paymentMethod === 'upi' ? 'UPI' : 'Card'}
+                           paymentForm.paymentMethod === 'upi' ? 'UPI' : 'Card'}</span>
                 </Button>
               </div>
             </div>
