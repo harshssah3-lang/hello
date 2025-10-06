@@ -160,14 +160,6 @@ const Hero = () => {
         <div className="max-w-5xl mx-auto space-y-6 sm:space-y-8 animate-slide-up">
           {/* Main Heading */}
           <div className="space-y-4 sm:space-y-6">
-             {/* School Logo */}
-             {brandingData.logoUrl && (
-              <img 
-                src={brandingData.logoUrl} 
-                alt="School Logo" 
-                className="h-24 w-auto mx-auto mb-4" 
-              />
-            )}
             <h1 
               className="text-3xl xs:text-4xl sm:text-5xl md:text-7xl lg:text-8xl font-heading font-bold leading-tight sm:leading-normal"
               style={{ fontFamily: homepageData.fonts.heading }}
