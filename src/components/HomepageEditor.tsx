@@ -80,7 +80,7 @@ const HomepageEditor = () => {
     heroButtonSecondary: "Discover Our Legacy",
     bannerImages: [],
     autoRotate: true,
-    rotationInterval: 5,
+    rotationInterval: 3,
     
     stats: {
       students: { number: "2,500+", label: "Students" },
@@ -510,8 +510,8 @@ const HomepageEditor = () => {
                   <Slider
                     value={[homepageData.rotationInterval]}
                     onValueChange={([value]) => updateField('rotationInterval', value)}
-                    min={3}
-                    max={15}
+                    min={2}
+                    max={10}
                     step={1}
                     className="w-full"
                   />
