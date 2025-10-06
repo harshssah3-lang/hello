@@ -157,7 +157,7 @@ const Hero = () => {
 
       {/* Content */}
       <div className="relative z-10 container-wide px-4 sm:px-6 py-8 sm:py-16 text-center">
-        <div className="max-w-5xl mx-auto space-y-6 sm:space-y-8 animate-slide-up">
+        <div className="max-w-5xl mx-auto space-y-6 sm:space-y-8 ">
           {/* Main Heading */}
           <div className="space-y-4 sm:space-y-6">
             <h1 
@@ -168,6 +168,9 @@ const Hero = () => {
                 <span 
                   key={index}
                   className={`block ${index === 0 ? 'text-gradient-gold' : 'text-foreground'}`}
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.15, delay: 0.01 }}
                 >
                   {word}
                 </span>
@@ -176,6 +179,9 @@ const Hero = () => {
             <p 
               className="text-base sm:text-xl md:text-2xl max-w-3xl mx-auto leading-relaxed px-2 sm:px-0"
               style={{ fontFamily: homepageData.fonts.body, color: '#000000' }}
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.15, delay: 0.01 }}
             >
               {homepageData.heroSubtitle}
             </p>
@@ -183,13 +189,21 @@ const Hero = () => {
 
           {/* Call to Action */}
           <div className="flex flex-col sm:flex-row gap-4 sm:gap-6 justify-center items-center pt-6 sm:pt-8 px-4 sm:px-0">
-            <Button variant="hero" size="xl" asChild>
+            <Button variant="hero" size="xl" asChild
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.15, delay: 0.01 }}
+            >
               <Link to="/admissions" className="group">
                 {homepageData.heroButtonPrimary}
                 <ArrowRight className="ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform" />
               </Link>
             </Button>
-            <Button variant="outline" size="xl" asChild className="border-gold/50 text-black hover:bg-gold/10">
+            <Button variant="outline" size="xl" asChild
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.15, delay: 0.01 }}
+            >
               <Link to="/about">
                 {homepageData.heroButtonSecondary}
               </Link>
@@ -202,7 +216,9 @@ const Hero = () => {
               <div
                 key={stat.label}
                 className="card-3d p-4 sm:p-8 text-center group"
-                style={{ animationDelay: `${index * 0.2}s` }}
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.15, delay: 0.01 }}
               >
                 <div className="flex flex-col items-center space-y-4">
                   <div className="w-12 h-12 sm:w-16 sm:h-16 rounded-full bg-gradient-to-br from-gold/20 to-gold/40 flex items-center justify-center group-hover:scale-110 transition-transform">

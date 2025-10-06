@@ -75,7 +75,7 @@ const Home = () => {
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
+            transition={{ duration: 0.15, delay: 0.01 }}
             className="text-center mb-16"
           >
             <h2 className="text-4xl md:text-5xl font-heading font-bold mb-6">
@@ -104,7 +104,7 @@ const Home = () => {
                   initial={{ opacity: 0, y: 20 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   whileHover={{ scale: 1.05, y: -10 }}
-                  transition={{ duration: 0.3, delay: index * 0.1 }}
+                  transition={{ duration: 0.15, delay: 0.01 }}
                   onClick={() => navigate(`/events/${highlight.id}`)}
                   className="card-3d cursor-pointer overflow-hidden group"
                 >
