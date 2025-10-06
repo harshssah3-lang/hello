@@ -35,8 +35,6 @@ const BrandingManager = () => {
   });
 
   const [message, setMessage] = useState("");
-  const [logoPreview, setLogoPreview] = useState("");
-  const [faviconPreview, setFaviconPreview] = useState("");
 
   useEffect(() => {
     const fetchBranding = async () => {
@@ -55,8 +53,6 @@ const BrandingManager = () => {
         });
 
         setBranding(brandingData);
-        if (brandingData.logoUrl) setLogoPreview(brandingData.logoUrl);
-        if (brandingData.faviconUrl) setFaviconPreview(brandingData.faviconUrl);
       } catch (error: any) {
         console.error('[BrandingManager] Error fetching branding:', error);
       }
@@ -64,32 +60,6 @@ const BrandingManager = () => {
 
     fetchBranding();
   }, []);
-
-  const handleLogoUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0];
-    if (file) {
-      const reader = new FileReader();
-      reader.onload = (event) => {
-        const url = event.target?.result as string;
-        setLogoPreview(url);
-        setBranding(prev => ({ ...prev, logoUrl: url }));
-      };
-      reader.readAsDataURL(file);
-    }
-  };
-
-  const handleFaviconUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0];
-    if (file) {
-      const reader = new FileReader();
-      reader.onload = (event) => {
-        const url = event.target?.result as string;
-        setFaviconPreview(url);
-        setBranding(prev => ({ ...prev, faviconUrl: url }));
-      };
-      reader.readAsDataURL(file);
-    }
-  };
 
   const saveBranding = async () => {
     try {
@@ -102,19 +72,8 @@ const BrandingManager = () => {
         setMessage("⚠️ Branding saved locally but Supabase sync had issues. Changes will still work.");
       }
 
-      // Update document title and favicon immediately for preview
+      // Update document title immediately for preview
       document.title = `${branding.schoolName} - ${branding.tagline}`;
-      if (branding.faviconUrl) {
-        const favicon = document.querySelector("link[rel*='icon']") as HTMLLinkElement;
-        if (favicon) {
-          favicon.href = branding.faviconUrl;
-        } else {
-          const newFavicon = document.createElement('link');
-          newFavicon.rel = 'icon';
-          newFavicon.href = branding.faviconUrl;
-          document.head.appendChild(newFavicon);
-        }
-      }
 
       // Trigger a page reload after 2 seconds to show changes
       setTimeout(() => {
@@ -148,7 +107,6 @@ const BrandingManager = () => {
           <AlertDescription>{message}</AlertDescription>
         </Alert>
       )}
-
 
       {/* School Information */}
       <motion.div
