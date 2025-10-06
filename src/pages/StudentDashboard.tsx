@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
-import { subscribeToSupabaseChanges } from "@/lib/supabaseHelpers";
+import { subscribeToSupabaseChanges, setSupabaseData } from "@/lib/supabaseHelpers";
 import { 
   Calendar, 
   Clock, 
@@ -380,7 +380,7 @@ const StudentDashboard = () => {
     setShowPaymentModal(true);
   };
 
-  const processPayment = () => {
+  const processPayment = async () => {
     if (!selectedPaymentRequest || !studentData) {
       alert('Payment information is missing');
       return;
@@ -399,12 +399,13 @@ const StudentDashboard = () => {
     });
     
     setFeeRecords(updatedFeeRecords);
-    localStorage.setItem('royal-academy-fee-records', JSON.stringify(
-      JSON.parse(localStorage.getItem('royal-academy-fee-records') || '[]').map((fee: FeeRecord) => {
-        const updatedFee = updatedFeeRecords.find(f => f.id === fee.id);
-        return updatedFee || fee;
-      })
-    ));
+    const allFeeRecords = JSON.parse(localStorage.getItem('royal-academy-fee-records') || '[]').map((fee: FeeRecord) => {
+      const updatedFee = updatedFeeRecords.find(f => f.id === fee.id);
+      return updatedFee || fee;
+    });
+    localStorage.setItem('royal-academy-fee-records', JSON.stringify(allFeeRecords));
+    // Write to Supabase for real-time sync
+    await setSupabaseData('royal-academy-fee-records', allFeeRecords);
 
     // Update payment request status
     const updatedPaymentRequests = paymentRequests.map(req => 
@@ -414,12 +415,13 @@ const StudentDashboard = () => {
     );
     
     setPaymentRequests(updatedPaymentRequests);
-    localStorage.setItem('royal-academy-payment-requests', JSON.stringify(
-      JSON.parse(localStorage.getItem('royal-academy-payment-requests') || '[]').map((req: PaymentRequest) => {
-        const updatedReq = updatedPaymentRequests.find(r => r.id === req.id);
-        return updatedReq || req;
-      })
-    ));
+    const allPaymentRequests = JSON.parse(localStorage.getItem('royal-academy-payment-requests') || '[]').map((req: PaymentRequest) => {
+      const updatedReq = updatedPaymentRequests.find(r => r.id === req.id);
+      return updatedReq || req;
+    });
+    localStorage.setItem('royal-academy-payment-requests', JSON.stringify(allPaymentRequests));
+    // Write to Supabase for real-time sync
+    await setSupabaseData('royal-academy-payment-requests', allPaymentRequests);
 
     alert(`Payment of ₹${selectedPaymentRequest.amount} completed successfully!\nMonths: ${selectedPaymentRequest.months.join(', ')}`);
     
@@ -947,13 +949,13 @@ const StudentDashboard = () => {
         </div>
       </motion.header>
 
-      <div className="container-wide py-8 px-6">
+      <div className="container-wide py-4 sm:py-8 px-3 sm:px-6">
         {/* Stats Grid */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.1 }}
-          className="grid grid-cols-2 lg:grid-cols-4 gap-6 mb-8"
+          className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-6 mb-4 sm:mb-8"
         >
           {stats.map((stat, index) => (
             <motion.div
@@ -961,30 +963,30 @@ const StudentDashboard = () => {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.1 + index * 0.1 }}
-              className="bg-card/95 backdrop-blur-md rounded-xl p-6 border border-border/50 hover:shadow-lg transition-all duration-200"
+              className="bg-card/95 backdrop-blur-md rounded-xl p-3 sm:p-6 border border-border/50 hover:shadow-lg transition-all duration-200"
             >
-              <div className="flex items-center justify-between mb-4">
-                <div className="w-12 h-12 rounded-lg bg-gradient-to-r from-royal/20 to-gold/20 flex items-center justify-center">
-                  <stat.icon className="h-6 w-6 text-royal" />
+              <div className="flex items-center justify-between mb-2 sm:mb-4">
+                <div className="w-8 h-8 sm:w-12 sm:h-12 rounded-lg bg-gradient-to-r from-royal/20 to-gold/20 flex items-center justify-center">
+                  <stat.icon className="h-4 w-4 sm:h-6 sm:w-6 text-royal" />
                 </div>
               </div>
               <div>
-                <p className="text-2xl font-bold text-foreground mb-1">{stat.value}</p>
-                <p className="text-sm font-medium text-foreground mb-1">{stat.label}</p>
-                <p className="text-xs text-muted-foreground">{stat.change}</p>
+                <p className="text-lg sm:text-2xl font-bold text-foreground mb-1">{stat.value}</p>
+                <p className="text-xs sm:text-sm font-medium text-foreground mb-1">{stat.label}</p>
+                <p className="text-[10px] sm:text-xs text-muted-foreground">{stat.change}</p>
               </div>
             </motion.div>
           ))}
         </motion.div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-8">
           {/* Upcoming Events */}
           <motion.div
             initial={{ opacity: 0, x: -20 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ delay: 0.3 }}
           >
-            <div className="bg-card/95 backdrop-blur-md rounded-xl p-6 border border-border/50">
+            <div className="bg-card/95 backdrop-blur-md rounded-xl p-4 sm:p-6 border border-border/50">
               <h2 className="text-lg font-heading font-bold text-foreground mb-6">
                 Upcoming Events
               </h2>
@@ -1025,7 +1027,7 @@ const StudentDashboard = () => {
             animate={{ opacity: 1, x: 0 }}
             transition={{ delay: 0.4 }}
           >
-            <div className="bg-card/95 backdrop-blur-md rounded-xl p-6 border border-border/50">
+            <div className="bg-card/95 backdrop-blur-md rounded-xl p-4 sm:p-6 border border-border/50">
               <h2 className="text-lg font-heading font-bold text-foreground mb-6">
                 Academic Progress
               </h2>
@@ -1076,13 +1078,13 @@ const StudentDashboard = () => {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.6 }}
-          className="mt-8"
+          className="mt-4 sm:mt-8"
         >
-          <div className="bg-card/95 backdrop-blur-md rounded-xl p-6 border border-border/50">
-            <h2 className="text-lg font-heading font-bold text-foreground mb-6">
+          <div className="bg-card/95 backdrop-blur-md rounded-xl p-4 sm:p-6 border border-border/50">
+            <h2 className="text-base sm:text-lg font-heading font-bold text-foreground mb-4 sm:mb-6">
               Quick Actions
             </h2>
-            <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-4">
+            <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3 sm:gap-4">
               {[
                 { title: "My Profile", icon: User, color: "from-royal to-gold", action: () => navigate('/student-my-profile') },
                 { title: "View Grades", icon: BarChart3, color: "from-blue-500 to-cyan-500", action: () => setShowGradesModal(true) },
@@ -1111,11 +1113,11 @@ const StudentDashboard = () => {
                   whileHover={{ scale: 1.02 }}
                   whileTap={{ scale: 0.98 }}
                   onClick={action.action}
-                  className="p-4 rounded-lg bg-gradient-to-r hover:shadow-lg transition-all duration-200 text-white group"
+                  className="rounded-lg bg-gradient-to-r hover:shadow-lg transition-all duration-200 text-white group"
                 >
-                  <div className={`bg-gradient-to-r ${action.color} p-4 rounded-lg`}>
-                    <action.icon className="h-6 w-6 text-white mb-3 mx-auto" />
-                    <p className="text-sm font-medium text-white text-center">
+                  <div className={`bg-gradient-to-r ${action.color} p-3 sm:p-4 rounded-lg`}>
+                    <action.icon className="h-5 w-5 sm:h-6 sm:w-6 text-white mb-2 sm:mb-3 mx-auto" />
+                    <p className="text-xs sm:text-sm font-medium text-white text-center">
                       {action.title}
                     </p>
                   </div>
@@ -1128,14 +1130,14 @@ const StudentDashboard = () => {
 
       {/* Grades/Reports Modal */}
       {showGradesModal && (
-        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
+        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-2 sm:p-4">
           <motion.div
             initial={{ opacity: 0, scale: 0.9 }}
             animate={{ opacity: 1, scale: 1 }}
-            className="bg-card rounded-xl p-6 w-full max-w-4xl max-h-[80vh] overflow-y-auto border border-border/50"
+            className="bg-card rounded-xl p-4 sm:p-6 w-full max-w-4xl max-h-[85vh] sm:max-h-[80vh] overflow-y-auto border border-border/50"
           >
-            <div className="flex items-center justify-between mb-6">
-              <h3 className="text-xl font-heading font-bold text-foreground">
+            <div className="flex items-center justify-between mb-4 sm:mb-6">
+              <h3 className="text-lg sm:text-xl font-heading font-bold text-foreground">
                 My Reports & Grades
               </h3>
               <Button
@@ -1233,13 +1235,13 @@ const StudentDashboard = () => {
 
       {/* Attendance Modal */}
       {showAttendanceModal && (
-        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
+        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-2 sm:p-4">
           <motion.div
             initial={{ opacity: 0, scale: 0.9 }}
             animate={{ opacity: 1, scale: 1 }}
-            className="bg-card rounded-xl p-6 w-full max-w-5xl max-h-[85vh] overflow-y-auto border border-border/50"
+            className="bg-card rounded-xl p-4 sm:p-6 w-full max-w-5xl max-h-[85vh] overflow-y-auto border border-border/50"
           >
-            <div className="flex items-center justify-between mb-6">
+            <div className="flex items-center justify-between mb-4 sm:mb-6">
               <div className="flex items-center space-x-4">
                 <h3 className="text-xl font-heading font-bold text-foreground">My Attendance</h3>
                 <div className="flex items-center space-x-2">
@@ -1418,14 +1420,14 @@ const StudentDashboard = () => {
 
       {/* Assignments Modal */}
       {showAssignmentsModal && (
-        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
+        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-2 sm:p-4">
           <motion.div
             initial={{ opacity: 0, scale: 0.9 }}
             animate={{ opacity: 1, scale: 1 }}
-            className="bg-card rounded-xl p-6 w-full max-w-4xl max-h-[85vh] overflow-y-auto border border-border/50"
+            className="bg-card rounded-xl p-4 sm:p-6 w-full max-w-4xl max-h-[85vh] overflow-y-auto border border-border/50"
           >
-            <div className="flex items-center justify-between mb-6">
-              <h3 className="text-xl font-heading font-bold text-foreground">
+            <div className="flex items-center justify-between mb-4 sm:mb-6">
+              <h3 className="text-lg sm:text-xl font-heading font-bold text-foreground">
                 My Assignments & Homework
               </h3>
               <div className="flex items-center space-x-2">
@@ -1588,14 +1590,14 @@ const StudentDashboard = () => {
 
       {/* Remarks Modal */}
       {showRemarksModal && (
-        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
+        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-2 sm:p-4">
           <motion.div
             initial={{ opacity: 0, scale: 0.9 }}
             animate={{ opacity: 1, scale: 1 }}
-            className="bg-card rounded-xl p-6 w-full max-w-4xl max-h-[85vh] overflow-y-auto border border-border/50"
+            className="bg-card rounded-xl p-4 sm:p-6 w-full max-w-4xl max-h-[85vh] overflow-y-auto border border-border/50"
           >
-            <div className="flex items-center justify-between mb-6">
-              <h3 className="text-xl font-heading font-bold text-foreground">
+            <div className="flex items-center justify-between mb-4 sm:mb-6">
+              <h3 className="text-lg sm:text-xl font-heading font-bold text-foreground">
                 My Remarks from Teachers
               </h3>
               <div className="flex items-center space-x-2">
@@ -1867,15 +1869,15 @@ const StudentDashboard = () => {
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4"
+          className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-2 sm:p-4"
         >
           <motion.div
             initial={{ opacity: 0, scale: 0.9 }}
             animate={{ opacity: 1, scale: 1 }}
-            className="bg-card rounded-xl p-6 w-full max-w-4xl max-h-[80vh] overflow-y-auto border border-border/50"
+            className="bg-card rounded-xl p-4 sm:p-6 w-full max-w-4xl max-h-[85vh] sm:max-h-[80vh] overflow-y-auto border border-border/50"
           >
-            <div className="flex items-center justify-between mb-6">
-              <h3 className="text-xl font-heading font-bold text-foreground">
+            <div className="flex items-center justify-between mb-4 sm:mb-6">
+              <h3 className="text-lg sm:text-xl font-heading font-bold text-foreground">
                 Fee Management
               </h3>
               <Button
@@ -2376,14 +2378,14 @@ const StudentDashboard = () => {
 
       {/* Principal Remarks Modal */}
       {showPrincipalRemarksModal && (
-        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
+        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-2 sm:p-4">
           <motion.div
             initial={{ opacity: 0, scale: 0.9 }}
             animate={{ opacity: 1, scale: 1 }}
-            className="bg-card rounded-xl p-6 w-full max-w-4xl max-h-[80vh] overflow-y-auto border border-border/50"
+            className="bg-card rounded-xl p-4 sm:p-6 w-full max-w-4xl max-h-[85vh] sm:max-h-[80vh] overflow-y-auto border border-border/50"
           >
-            <div className="flex items-center justify-between mb-6">
-              <h3 className="text-xl font-heading font-bold text-foreground flex items-center">
+            <div className="flex items-center justify-between mb-4 sm:mb-6">
+              <h3 className="text-lg sm:text-xl font-heading font-bold text-foreground flex items-center">
                 <Star className="h-6 w-6 text-yellow-500 mr-2" />
                 Principal Remarks
               </h3>

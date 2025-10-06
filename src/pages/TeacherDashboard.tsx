@@ -1042,7 +1042,7 @@ const TeacherDashboard = () => {
   };
 
   // Fee management functions
-  const handleCreatePaymentRequest = () => {
+  const handleCreatePaymentRequest = async () => {
     if (!selectedStudentForPayment || !paymentForm.amount || paymentForm.months.length === 0) {
       alert('Please select a student, enter amount, and select at least one month');
       return;
@@ -1066,6 +1066,8 @@ const TeacherDashboard = () => {
     const updatedRequests = [...paymentRequests, newPaymentRequest];
     setPaymentRequests(updatedRequests);
     localStorage.setItem('royal-academy-payment-requests', JSON.stringify(updatedRequests));
+    // Write to Supabase for real-time sync
+    await setSupabaseData('royal-academy-payment-requests', updatedRequests);
 
     // Create fee records for each month
     const newFeeRecords: FeeRecord[] = paymentForm.months.map(month => ({
@@ -1086,6 +1088,8 @@ const TeacherDashboard = () => {
     const updatedFeeRecords = [...feeRecords, ...newFeeRecords];
     setFeeRecords(updatedFeeRecords);
     localStorage.setItem('royal-academy-fee-records', JSON.stringify(updatedFeeRecords));
+    // Write to Supabase for real-time sync
+    await setSupabaseData('royal-academy-fee-records', updatedFeeRecords);
 
     alert(`Payment request created for ${selectedStudentForPayment.name}!\nAmount: ₹${paymentForm.amount}\nMonths: ${paymentForm.months.join(', ')}`);
 
