@@ -348,17 +348,10 @@ const TeacherDashboard = () => {
   const [attendanceRemarks, setAttendanceRemarks] = useState<{[key: string]: string}>({});
 
   useEffect(() => {
-    // Check authentication
-    const isAuth = localStorage.getItem("teacherAuth");
+    // Load teacher data - auth is already checked by ProtectedRoute
     const email = localStorage.getItem("teacherEmail");
     const name = localStorage.getItem("teacherName");
     const subject = localStorage.getItem("teacherSubject");
-
-    if (!isAuth || isAuth !== "true") {
-      // Not authenticated: redirect to teacher login
-      navigate("/teacher", { replace: true });
-      return;
-    }
 
     if (email) setTeacherEmail(email);
     if (name) setTeacherName(name);

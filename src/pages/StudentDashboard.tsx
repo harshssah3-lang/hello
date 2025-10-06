@@ -429,24 +429,11 @@ const StudentDashboard = () => {
   };
 
   useEffect(() => {
-    // Check authentication with stricter validation
-    const isAuth = localStorage.getItem("studentAuth");
+    // Load student data - auth is already checked by ProtectedRoute
     const currentStudent = localStorage.getItem("currentStudent");
     const studentEmail = localStorage.getItem("studentEmail");
     
-    console.log('[StudentDashboard] Auth check:', { isAuth, hasCurrentStudent: !!currentStudent, studentEmail });
-    
-    // Only redirect if not authenticated - be more lenient to prevent unnecessary redirects
-    if (!isAuth || isAuth !== "true") {
-      console.log('[StudentDashboard] Not authenticated, redirecting to auth');
-      navigate("/student-auth");
-      return;
-    }
-    
-    // Ensure auth persists
-    if (isAuth === "true") {
-      localStorage.setItem("studentAuth", "true");
-    }
+    console.log('[StudentDashboard] Loading student data:', { hasCurrentStudent: !!currentStudent, studentEmail });
     
     // Try to get student data from currentStudent first (faster)
     if (currentStudent) {
@@ -674,6 +661,32 @@ const StudentDashboard = () => {
       }
     );
     
+    // Subscribe to fee records
+    const unsubscribeFeeRecords = subscribeToSupabaseChanges(
+      'royal-academy-fee-records',
+      (newData: any[]) => {
+        console.log('[StudentDashboard] Fee records updated from Supabase');
+        // Update localStorage with fresh data
+        localStorage.setItem('royal-academy-fee-records', JSON.stringify(newData));
+        
+        const studentFeeRecords = newData.filter((fee: any) => fee.studentId === studentData.id);
+        setFeeRecords(studentFeeRecords);
+      }
+    );
+    
+    // Subscribe to payment requests
+    const unsubscribePaymentRequests = subscribeToSupabaseChanges(
+      'royal-academy-payment-requests',
+      (newData: any[]) => {
+        console.log('[StudentDashboard] Payment requests updated from Supabase');
+        // Update localStorage with fresh data
+        localStorage.setItem('royal-academy-payment-requests', JSON.stringify(newData));
+        
+        const studentPaymentRequests = newData.filter((req: any) => req.studentId === studentData.id);
+        setPaymentRequests(studentPaymentRequests);
+      }
+    );
+    
     // Cleanup subscriptions when component unmounts or studentData changes
     return () => {
       console.log('[StudentDashboard] Cleaning up real-time subscriptions');
@@ -683,6 +696,8 @@ const StudentDashboard = () => {
       unsubscribeNotifications();
       unsubscribePrincipalRemarks();
       unsubscribeAuthStudents();
+      unsubscribeFeeRecords();
+      unsubscribePaymentRequests();
     };
   }, [studentData]);
 
