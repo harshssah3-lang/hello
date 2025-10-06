@@ -1799,7 +1799,7 @@ const TeacherDashboard = () => {
         )}
 
         {/* Navigation Tabs */}
-        <div className="flex flex-wrap gap-2 mb-6">
+        <div className="flex flex-wrap gap-1 sm:gap-2 mb-4 sm:mb-6">
           {[
             { id: "dashboard", label: "Dashboard", icon: BarChart3 },
             { id: "homework", label: "Homework", icon: BookOpen },
@@ -1815,10 +1815,10 @@ const TeacherDashboard = () => {
               variant={activeSection === tab.id ? "default" : "outline"}
               onClick={() => setActiveSection(tab.id as any)}
               size="sm"
-              className="flex items-center space-x-2"
+              className="flex items-center space-x-1 sm:space-x-2 h-9 px-2 sm:px-3"
             >
               <tab.icon className="h-4 w-4" />
-              <span className="hidden sm:inline">{tab.label}</span>
+              <span className="hidden sm:inline text-xs sm:text-sm">{tab.label}</span>
             </Button>
           ))}
         </div>
@@ -1828,35 +1828,35 @@ const TeacherDashboard = () => {
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            className="space-y-6"
+            className="space-y-4 sm:space-y-6"
           >
-            <div className="flex justify-between items-center">
-              <h2 className="text-2xl font-heading font-bold text-foreground">Homework Management</h2>
+            <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3 sm:gap-0">
+              <h2 className="text-lg sm:text-2xl font-heading font-bold text-foreground">Homework Management</h2>
               <Button
                 onClick={() => setShowHomeworkModal(true)}
-                className="bg-gradient-to-r from-gold to-yellow-500 text-black"
+                className="bg-gradient-to-r from-gold to-yellow-500 text-black h-9 sm:h-10 w-full sm:w-auto"
               >
                 <Plus className="h-4 w-4 mr-2" />
-                Create Homework
+                <span className="text-sm sm:text-base">Create Homework</span>
               </Button>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-6">
               {homework.map((hw) => (
                 <motion.div
                   key={hw.id}
                   initial={{ opacity: 0, scale: 0.9 }}
                   animate={{ opacity: 1, scale: 1 }}
-                  className="bg-card/95 backdrop-blur-md rounded-xl p-6 border border-border/50"
+                  className="bg-card/95 backdrop-blur-md rounded-xl p-4 sm:p-6 border border-border/50"
                 >
-                  <div className="flex items-start justify-between mb-4">
-                    <h3 className="font-bold text-foreground">{hw.title}</h3>
-                    <span className="text-xs bg-gold/20 text-gold px-2 py-1 rounded-full">
+                  <div className="flex items-start justify-between mb-3 sm:mb-4">
+                    <h3 className="font-bold text-foreground text-sm sm:text-base">{hw.title}</h3>
+                    <span className="text-xs bg-gold/20 text-gold px-2 py-1 rounded-full flex-shrink-0">
                       {hw.class}-{hw.section}
                     </span>
                   </div>
-                  <p className="text-sm text-muted-foreground mb-4">{hw.description}</p>
-                  <div className="flex items-center justify-between text-xs text-muted-foreground mb-4">
+                  <p className="text-xs sm:text-sm text-muted-foreground mb-3 sm:mb-4">{hw.description}</p>
+                  <div className="flex items-center justify-between text-[10px] sm:text-xs text-muted-foreground mb-3 sm:mb-4">
                     <span>Due: {hw.dueDate}</span>
                     <span>{hw.attachments.length} attachments</span>
                   </div>
@@ -1867,7 +1867,7 @@ const TeacherDashboard = () => {
                       variant="outline"
                       size="sm"
                       onClick={() => handleEditHomework(hw)}
-                      className="flex-1 text-xs"
+                      className="flex-1 text-xs h-8 sm:h-9"
                     >
                       ✏️ Edit
                     </Button>
@@ -1875,7 +1875,7 @@ const TeacherDashboard = () => {
                       variant="destructive"
                       size="sm"
                       onClick={() => handleDeleteHomework(hw.id)}
-                      className="flex-1 text-xs"
+                      className="flex-1 text-xs h-8 sm:h-9"
                     >
                       🗑️ Delete
                     </Button>
@@ -1891,53 +1891,54 @@ const TeacherDashboard = () => {
 
       {/* Homework Modal */}
       {showHomeworkModal && (
-        <div className="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+        <div className="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 flex items-center justify-center p-3 sm:p-4">
           <motion.div
             initial={{ scale: 0.9, opacity: 0 }}
             animate={{ scale: 1, opacity: 1 }}
             className="bg-background rounded-2xl shadow-2xl max-w-2xl w-full max-h-[90vh] overflow-hidden"
           >
-            <div className="flex items-center justify-between p-6 border-b border-border">
-              <h3 className="text-xl font-heading font-bold">
+            <div className="flex items-center justify-between p-4 sm:p-6 border-b border-border">
+              <h3 className="text-base sm:text-xl font-heading font-bold">
                 {editingHomework ? 'Edit Homework' : 'Create Homework'}
               </h3>
               <Button variant="ghost" size="sm" onClick={() => {
                 setShowHomeworkModal(false);
                 setEditingHomework(null);
-              }}>
+              }} className="h-8 w-8 sm:h-9 sm:w-9 p-0">
                 <X className="h-4 w-4" />
               </Button>
             </div>
 
-            <div className="p-6 overflow-y-auto max-h-[calc(90vh-140px)]">
-              <div className="space-y-4">
+            <div className="p-4 sm:p-6 overflow-y-auto max-h-[calc(90vh-140px)]">
+              <div className="space-y-3 sm:space-y-4">
                 <div>
-                  <label className="block text-sm font-medium mb-2">Title *</label>
+                  <label className="block text-xs sm:text-sm font-medium mb-2">Title *</label>
                   <Input
                     value={homeworkForm.title}
                     onChange={(e) => setHomeworkForm({...homeworkForm, title: e.target.value})}
                     placeholder="Enter homework title"
+                    className="h-9 sm:h-10 text-sm"
                   />
                 </div>
 
                 <div>
-                  <label className="block text-sm font-medium mb-2">Description *</label>
+                  <label className="block text-xs sm:text-sm font-medium mb-2">Description *</label>
                   <textarea
                     value={homeworkForm.description}
                     onChange={(e) => setHomeworkForm({...homeworkForm, description: e.target.value})}
                     placeholder="Enter homework description"
                     rows={3}
-                    className="w-full px-3 py-2 border border-border rounded-lg bg-background text-foreground resize-none"
+                    className="w-full px-3 py-2 border border-border rounded-lg bg-background text-foreground resize-none text-sm"
                   />
                 </div>
 
-                <div className="grid grid-cols-2 gap-4">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
                   <div>
-                    <label className="block text-sm font-medium mb-2">Class *</label>
+                    <label className="block text-xs sm:text-sm font-medium mb-2">Class *</label>
                     <select
                       value={homeworkForm.class}
                       onChange={(e) => setHomeworkForm({...homeworkForm, class: e.target.value})}
-                      className="w-full p-3 border border-border rounded-lg bg-background"
+                      className="w-full p-2 sm:p-3 border border-border rounded-lg bg-background text-sm"
                     >
                       {classes.map(cls => (
                         <option key={cls} value={cls}>Class {cls}</option>
@@ -1945,11 +1946,11 @@ const TeacherDashboard = () => {
                     </select>
                   </div>
                   <div>
-                    <label className="block text-sm font-medium mb-2">Section *</label>
+                    <label className="block text-xs sm:text-sm font-medium mb-2">Section *</label>
                     <select
                       value={homeworkForm.section}
                       onChange={(e) => setHomeworkForm({...homeworkForm, section: e.target.value})}
-                      className="w-full p-3 border border-border rounded-lg bg-background"
+                      className="w-full p-2 sm:p-3 border border-border rounded-lg bg-background text-sm"
                     >
                       {sections.map(sec => (
                         <option key={sec} value={sec}>Section {sec}</option>
@@ -1959,16 +1960,17 @@ const TeacherDashboard = () => {
                 </div>
 
                 <div>
-                  <label className="block text-sm font-medium mb-2">Due Date *</label>
+                  <label className="block text-xs sm:text-sm font-medium mb-2">Due Date *</label>
                   <Input
                     type="date"
                     value={homeworkForm.dueDate}
                     onChange={(e) => setHomeworkForm({...homeworkForm, dueDate: e.target.value})}
+                    className="h-9 sm:h-10 text-sm"
                   />
                 </div>
 
                 <div>
-                  <label className="block text-sm font-medium mb-2">Attach Photos</label>
+                  <label className="block text-xs sm:text-sm font-medium mb-2">Attach Photos</label>
                   <input
                     ref={fileInputRef}
                     type="file"
@@ -1981,7 +1983,7 @@ const TeacherDashboard = () => {
                     type="button"
                     variant="outline"
                     onClick={() => fileInputRef.current?.click()}
-                    className="w-full"
+                    className="w-full h-9 sm:h-10 text-sm"
                   >
                     <Camera className="h-4 w-4 mr-2" />
                     Upload Photos ({homeworkForm.attachments.length})
@@ -1989,13 +1991,13 @@ const TeacherDashboard = () => {
                 </div>
 
                 {homeworkForm.attachments.length > 0 && (
-                  <div className="grid grid-cols-3 gap-2">
+                  <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
                     {homeworkForm.attachments.map((img, index) => (
                       <img
                         key={index}
                         src={img}
                         alt={`Attachment ${index + 1}`}
-                        className="w-full h-20 object-cover rounded-lg border"
+                        className="w-full h-16 sm:h-20 object-cover rounded-lg border"
                       />
                     ))}
                   </div>
@@ -2003,13 +2005,13 @@ const TeacherDashboard = () => {
               </div>
             </div>
 
-            <div className="flex justify-end space-x-3 p-6 border-t border-border">
-              <Button variant="outline" onClick={() => setShowHomeworkModal(false)}>
+            <div className="flex flex-col-reverse sm:flex-row justify-end gap-2 sm:gap-3 sm:space-x-0 p-4 sm:p-6 border-t border-border">
+              <Button variant="outline" onClick={() => setShowHomeworkModal(false)} className="h-9 sm:h-10 text-sm">
                 Cancel
               </Button>
               <Button
                 onClick={handleCreateHomework}
-                className="bg-gradient-to-r from-gold to-yellow-500 text-black"
+                className="bg-gradient-to-r from-gold to-yellow-500 text-black h-9 sm:h-10 text-sm"
               >
                 <Send className="h-4 w-4 mr-2" />
                 {editingHomework ? 'Update Homework' : 'Send Homework'}
@@ -2025,88 +2027,88 @@ const TeacherDashboard = () => {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.2 }}
-          className="mt-8"
+          className="mt-4 sm:mt-8"
         >
-          <div className="bg-card/95 backdrop-blur-md rounded-xl p-6 border border-border/50">
-            <div className="flex items-center justify-between mb-6">
+          <div className="bg-card/95 backdrop-blur-md rounded-xl p-4 sm:p-6 border border-border/50">
+            <div className="flex items-center justify-between mb-4 sm:mb-6">
               <div>
-                <h2 className="text-xl font-heading font-bold text-foreground">Create Student ID</h2>
-                <p className="text-sm text-muted-foreground">Register new students and generate login credentials</p>
+                <h2 className="text-base sm:text-xl font-heading font-bold text-foreground">Create Student ID</h2>
+                <p className="text-xs sm:text-sm text-muted-foreground">Register new students and generate login credentials</p>
               </div>
               <Button
                 variant="outline"
                 onClick={() => setActiveSection("dashboard")}
-                className="text-muted-foreground hover:text-foreground"
+                className="text-muted-foreground hover:text-foreground h-8 w-8 sm:h-9 sm:w-9 p-0"
               >
                 <X className="h-4 w-4" />
               </Button>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
               {/* Student Form */}
-              <div className="space-y-4">
+              <div className="space-y-3 sm:space-y-4">
                 <div>
-                  <label className="block text-sm font-medium mb-2">Full Name *</label>
+                  <label className="block text-xs sm:text-sm font-medium mb-2">Full Name *</label>
                   <Input
                     value={studentForm.fullName}
                     onChange={(e) => setStudentForm({...studentForm, fullName: e.target.value})}
                     placeholder="Enter student's full name"
-                    className="w-full"
+                    className="w-full h-9 sm:h-10 text-sm"
                   />
                 </div>
 
                 <div>
-                  <label className="block text-sm font-medium mb-2">Email Address *</label>
+                  <label className="block text-xs sm:text-sm font-medium mb-2">Email Address *</label>
                   <Input
                     type="email"
                     value={studentForm.email}
                     onChange={(e) => setStudentForm({...studentForm, email: e.target.value})}
                     placeholder="Enter student's email"
-                    className="w-full"
+                    className="w-full h-9 sm:h-10 text-sm"
                   />
                 </div>
 
                 <div>
-                  <label className="block text-sm font-medium mb-2">Roll Number *</label>
+                  <label className="block text-xs sm:text-sm font-medium mb-2">Roll Number *</label>
                   <Input
                     value={studentForm.rollNumber}
                     onChange={(e) => setStudentForm({...studentForm, rollNumber: e.target.value})}
                     placeholder="Enter roll number"
-                    className="w-full"
+                    className="w-full h-9 sm:h-10 text-sm"
                   />
                 </div>
 
                 <div>
-                  <label className="block text-sm font-medium mb-2">Parent Email</label>
+                  <label className="block text-xs sm:text-sm font-medium mb-2">Parent Email</label>
                   <Input
                     type="email"
                     value={studentForm.parentEmail}
                     onChange={(e) => setStudentForm({...studentForm, parentEmail: e.target.value})}
                     placeholder="Enter parent's email"
-                    className="w-full"
+                    className="w-full h-9 sm:h-10 text-sm"
                   />
                 </div>
 
                 <div>
-                  <label className="block text-sm font-medium mb-2">Phone Number</label>
+                  <label className="block text-xs sm:text-sm font-medium mb-2">Phone Number</label>
                   <Input
                     value={studentForm.phone}
                     onChange={(e) => setStudentForm({...studentForm, phone: e.target.value})}
                     placeholder="Enter phone number"
-                    className="w-full"
+                    className="w-full h-9 sm:h-10 text-sm"
                   />
                 </div>
               </div>
 
               {/* Class & Section */}
-              <div className="space-y-4">
-                <div className="grid grid-cols-2 gap-4">
+              <div className="space-y-3 sm:space-y-4">
+                <div className="grid grid-cols-2 gap-3 sm:gap-4">
                   <div>
-                    <label className="block text-sm font-medium mb-2">Class *</label>
+                    <label className="block text-xs sm:text-sm font-medium mb-2">Class *</label>
                     <select
                       value={studentForm.class}
                       onChange={(e) => setStudentForm({...studentForm, class: e.target.value})}
-                      className="w-full p-3 border border-border rounded-lg bg-background"
+                      className="w-full p-2 sm:p-3 border border-border rounded-lg bg-background text-sm"
                     >
                       {classes.map(cls => (
                         <option key={cls} value={cls}>Class {cls}</option>
@@ -2114,11 +2116,11 @@ const TeacherDashboard = () => {
                     </select>
                   </div>
                   <div>
-                    <label className="block text-sm font-medium mb-2">Section *</label>
+                    <label className="block text-xs sm:text-sm font-medium mb-2">Section *</label>
                     <select
                       value={studentForm.section}
                       onChange={(e) => setStudentForm({...studentForm, section: e.target.value})}
-                      className="w-full p-3 border border-border rounded-lg bg-background"
+                      className="w-full p-2 sm:p-3 border border-border rounded-lg bg-background text-sm"
                     >
                       {sections.map(sec => (
                         <option key={sec} value={sec}>Section {sec}</option>
@@ -2128,12 +2130,12 @@ const TeacherDashboard = () => {
                 </div>
 
                 {/* Password Information */}
-                <div className="bg-blue-500/10 border border-blue-500/30 rounded-lg p-4">
+                <div className="bg-blue-500/10 border border-blue-500/30 rounded-lg p-3 sm:p-4">
                   <div className="flex items-center space-x-2 mb-2">
                     <Lock className="h-4 w-4 text-blue-400" />
-                    <h4 className="text-sm font-semibold text-blue-400">Password Information</h4>
+                    <h4 className="text-xs sm:text-sm font-semibold text-blue-400">Password Information</h4>
                   </div>
-                  <p className="text-xs text-muted-foreground">
+                  <p className="text-[10px] sm:text-xs text-muted-foreground">
                     Student passwords are automatically generated using the format: firstname123
                     (e.g., john123). Login credentials will be displayed after account creation.
                   </p>
@@ -2142,7 +2144,7 @@ const TeacherDashboard = () => {
                 {/* Create Button */}
                 <Button
                   onClick={handleCreateStudent}
-                  className="w-full bg-gradient-to-r from-gold to-yellow-500 text-black font-semibold py-3"
+                  className="w-full bg-gradient-to-r from-gold to-yellow-500 text-black font-semibold py-3 h-10 sm:h-11 text-sm"
                 >
                   <UserPlus className="h-4 w-4 mr-2" />
                   Create Student Account
@@ -2159,31 +2161,31 @@ const TeacherDashboard = () => {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.2 }}
-          className="mt-8"
+          className="mt-4 sm:mt-8"
         >
-          <div className="bg-card/95 backdrop-blur-md rounded-xl p-6 border border-border/50">
-            <div className="flex items-center justify-between mb-6">
+          <div className="bg-card/95 backdrop-blur-md rounded-xl p-4 sm:p-6 border border-border/50">
+            <div className="flex items-center justify-between mb-4 sm:mb-6">
               <div>
-                <h2 className="text-xl font-heading font-bold text-foreground">View Students</h2>
-                <p className="text-sm text-muted-foreground">Manage student records and information</p>
+                <h2 className="text-base sm:text-xl font-heading font-bold text-foreground">View Students</h2>
+                <p className="text-xs sm:text-sm text-muted-foreground">Manage student records and information</p>
               </div>
               <Button
                 variant="outline"
                 onClick={() => setActiveSection("dashboard")}
-                className="text-muted-foreground hover:text-foreground"
+                className="text-muted-foreground hover:text-foreground h-8 w-8 sm:h-9 sm:w-9 p-0"
               >
                 <X className="h-4 w-4" />
               </Button>
             </div>
 
             {/* Class and Section Selector */}
-            <div className="grid grid-cols-2 gap-4 mb-6">
+            <div className="grid grid-cols-2 gap-3 sm:gap-4 mb-4 sm:mb-6">
               <div>
-                <label className="block text-sm font-medium mb-2">Class</label>
+                <label className="block text-xs sm:text-sm font-medium mb-2">Class</label>
                 <select
                   value={selectedClass}
                   onChange={(e) => setSelectedClass(e.target.value)}
-                  className="w-full p-3 border border-border rounded-lg bg-background"
+                  className="w-full p-2 sm:p-3 border border-border rounded-lg bg-background text-sm"
                 >
                   {classes.map(cls => (
                     <option key={cls} value={cls}>Class {cls}</option>
@@ -2191,11 +2193,11 @@ const TeacherDashboard = () => {
                 </select>
               </div>
               <div>
-                <label className="block text-sm font-medium mb-2">Section</label>
+                <label className="block text-xs sm:text-sm font-medium mb-2">Section</label>
                 <select
                   value={selectedSection}
                   onChange={(e) => setSelectedSection(e.target.value)}
-                  className="w-full p-3 border border-border rounded-lg bg-background"
+                  className="w-full p-2 sm:p-3 border border-border rounded-lg bg-background text-sm"
                 >
                   {sections.map(sec => (
                     <option key={sec} value={sec}>Section {sec}</option>
@@ -2205,27 +2207,27 @@ const TeacherDashboard = () => {
             </div>
 
             {/* Students List */}
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4">
               {getClassStudents().length > 0 ? (
                 getClassStudents().map((student) => (
-                  <div key={student.id} className="bg-muted/20 rounded-lg p-4 border border-border/30">
-                    <div className="flex items-center space-x-3 mb-3">
-                      <div className="w-10 h-10 rounded-full bg-gradient-to-r from-gold to-yellow-500 flex items-center justify-center">
-                        <span className="text-black font-semibold text-sm">
+                  <div key={student.id} className="bg-muted/20 rounded-lg p-3 sm:p-4 border border-border/30">
+                    <div className="flex items-center space-x-2 sm:space-x-3 mb-2 sm:mb-3">
+                      <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-gradient-to-r from-gold to-yellow-500 flex items-center justify-center flex-shrink-0">
+                        <span className="text-black font-semibold text-xs sm:text-sm">
                           {student.name.split(' ').map(n => n[0]).join('').slice(0, 2)}
                         </span>
                       </div>
-                      <div>
-                        <h3 className="font-semibold text-foreground">{student.name}</h3>
-                        <p className="text-sm text-muted-foreground">Roll: {student.rollNumber}</p>
+                      <div className="min-w-0 flex-1">
+                        <h3 className="font-semibold text-foreground text-sm sm:text-base truncate">{student.name}</h3>
+                        <p className="text-xs sm:text-sm text-muted-foreground">Roll: {student.rollNumber}</p>
                       </div>
                     </div>
-                    <div className="space-y-1 text-sm mb-3">
-                      <p><span className="text-muted-foreground">Email:</span> {student.email}</p>
+                    <div className="space-y-1 text-xs sm:text-sm mb-2 sm:mb-3">
+                      <p className="truncate"><span className="text-muted-foreground">Email:</span> {student.email}</p>
                       <p><span className="text-muted-foreground">Class:</span> {student.class}-{student.section}</p>
                       <p><span className="text-muted-foreground">Phone:</span> {student.phone}</p>
-                      <div className="flex items-center justify-between">
-                        <p><span className="text-muted-foreground">ID:</span> {student.id}</p>
+                      <div className="flex items-center justify-between gap-2">
+                        <p className="truncate min-w-0"><span className="text-muted-foreground">ID:</span> {student.id}</p>
                         <Button
                           variant="ghost"
                           size="sm"
@@ -2234,13 +2236,13 @@ const TeacherDashboard = () => {
                             alert('Student ID copied to clipboard!');
                           }}
                           title="Copy Student ID"
-                          className="h-6 px-2 text-xs"
+                          className="h-6 sm:h-7 px-2 text-[10px] sm:text-xs flex-shrink-0"
                         >
                           Copy ID
                         </Button>
                       </div>
                       <div className="flex items-center justify-between">
-                        <span className={`px-2 py-1 text-xs rounded-full ${
+                        <span className={`px-2 py-1 text-[10px] sm:text-xs rounded-full ${
                           student.status === 'banned' 
                             ? 'bg-red-500/10 text-red-400 border border-red-500/30' 
                             : 'bg-green-500/10 text-green-400 border border-green-500/30'
@@ -2360,36 +2362,36 @@ const TeacherDashboard = () => {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.2 }}
-          className="mt-8"
+          className="mt-4 sm:mt-8"
         >
-          <div className="bg-card/95 backdrop-blur-md rounded-xl p-6 border border-border/50">
-            <div className="flex items-center justify-between mb-6">
-              <div>
-                <h2 className="text-xl font-heading font-bold text-foreground">Attendance Management</h2>
-                <p className="text-sm text-muted-foreground">Mark attendance and manage holidays</p>
+          <div className="bg-card/95 backdrop-blur-md rounded-xl p-4 sm:p-6 border border-border/50">
+            <div className="flex items-center justify-between mb-4 sm:mb-6">
+              <div className="flex-1 min-w-0 pr-2">
+                <h2 className="text-base sm:text-xl font-heading font-bold text-foreground">Attendance Management</h2>
+                <p className="text-xs sm:text-sm text-muted-foreground">Mark attendance and manage holidays</p>
               </div>
               <Button
                 variant="outline"
                 onClick={() => setActiveSection("dashboard")}
-                className="text-muted-foreground hover:text-foreground"
+                className="text-muted-foreground hover:text-foreground h-8 w-8 sm:h-9 sm:w-9 p-0 flex-shrink-0"
               >
                 <X className="h-4 w-4" />
               </Button>
             </div>
 
             {/* Navigation Tabs */}
-            <div className="flex space-x-2 mb-6 border-b border-border/50">
+            <div className="flex flex-wrap gap-1 sm:gap-2 mb-4 sm:mb-6 border-b border-border/50 pb-2">
               <Button
                 variant={attendanceView === 'today' ? 'default' : 'ghost'}
                 onClick={() => setAttendanceView('today')}
-                className="text-sm"
+                className="text-xs sm:text-sm h-8 sm:h-9 px-2 sm:px-3"
               >
                 Today's Attendance
               </Button>
               <Button
                 variant={attendanceView === 'editday' ? 'default' : 'ghost'}
                 onClick={() => setAttendanceView('editday')}
-                className="text-sm"
+                className="text-xs sm:text-sm h-8 sm:h-9 px-2 sm:px-3"
               >
                 Edit Any Day
               </Button>
@@ -2809,15 +2811,15 @@ const TeacherDashboard = () => {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.2 }}
-          className="mt-8"
+          className="mt-4 sm:mt-8"
         >
-          <div className="bg-card/95 backdrop-blur-md rounded-xl p-6 border border-border/50">
-            <div className="flex items-center justify-between mb-6">
-              <div>
-                <h2 className="text-xl font-heading font-bold text-foreground">
+          <div className="bg-card/95 backdrop-blur-md rounded-xl p-4 sm:p-6 border border-border/50">
+            <div className="flex items-center justify-between mb-4 sm:mb-6">
+              <div className="flex-1 min-w-0 pr-2">
+                <h2 className="text-base sm:text-xl font-heading font-bold text-foreground">
                   {editingRemark ? 'Edit Remark | रिमार्क एडिट करें' : 'Add Remarks | रिमार्क जोड़ें'}
                 </h2>
-                <p className="text-sm text-muted-foreground">
+                <p className="text-xs sm:text-sm text-muted-foreground">
                   {editingRemark 
                     ? 'Modify the selected remark | चुने गए रिमार्क को बदलें'
                     : 'Give positive or constructive feedback to students | छात्रों को सकारात्मक या रचनात्मक फीडबैक दें'
@@ -2827,15 +2829,15 @@ const TeacherDashboard = () => {
               <Button
                 variant="outline"
                 onClick={() => setActiveSection("dashboard")}
-                className="text-muted-foreground hover:text-foreground"
+                className="text-muted-foreground hover:text-foreground h-8 w-8 sm:h-9 sm:w-9 p-0 flex-shrink-0"
               >
                 <X className="h-4 w-4" />
               </Button>
             </div>
 
             {/* Remarks Form */}
-            <div className="space-y-4">
-              <div className="grid grid-cols-2 gap-4">
+            <div className="space-y-3 sm:space-y-4">
+              <div className="grid grid-cols-2 gap-3 sm:gap-4">
                 <div>
                   <label className="block text-sm font-medium mb-2">Class</label>
                   <select
@@ -3149,31 +3151,31 @@ const TeacherDashboard = () => {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.2 }}
-          className="mt-8"
+          className="mt-4 sm:mt-8"
         >
-          <div className="bg-card/95 backdrop-blur-md rounded-xl p-6 border border-border/50">
-            <div className="flex items-center justify-between mb-6">
-              <div>
-                <h2 className="text-xl font-heading font-bold text-foreground">Student Report</h2>
-                <p className="text-sm text-muted-foreground">Generate and view detailed student performance reports</p>
+          <div className="bg-card/95 backdrop-blur-md rounded-xl p-4 sm:p-6 border border-border/50">
+            <div className="flex items-center justify-between mb-4 sm:mb-6">
+              <div className="flex-1 min-w-0 pr-2">
+                <h2 className="text-base sm:text-xl font-heading font-bold text-foreground">Student Report</h2>
+                <p className="text-xs sm:text-sm text-muted-foreground">Generate and view detailed student performance reports</p>
               </div>
               <Button
                 variant="outline"
                 onClick={() => setActiveSection("dashboard")}
-                className="text-muted-foreground hover:text-foreground"
+                className="text-muted-foreground hover:text-foreground h-8 w-8 sm:h-9 sm:w-9 p-0 flex-shrink-0"
               >
                 <X className="h-4 w-4" />
               </Button>
             </div>
 
             {/* Class and Section Selection */}
-            <div className="grid grid-cols-2 gap-4 mb-6">
+            <div className="grid grid-cols-2 gap-3 sm:gap-4 mb-4 sm:mb-6">
               <div>
-                <label className="block text-sm font-medium mb-2">Class</label>
+                <label className="block text-xs sm:text-sm font-medium mb-2">Class</label>
                 <select
                   value={selectedClass}
                   onChange={(e) => setSelectedClass(e.target.value)}
-                  className="w-full p-3 border border-border rounded-lg bg-background"
+                  className="w-full p-2 sm:p-3 border border-border rounded-lg bg-background text-sm"
                 >
                   {classes.map(cls => (
                     <option key={cls} value={cls}>Class {cls}</option>
@@ -3195,14 +3197,14 @@ const TeacherDashboard = () => {
             </div>
 
             {/* Student Report Cards */}
-            <div className="space-y-4">
-              <div className="flex items-center justify-between">
-                <h3 className="text-lg font-semibold text-foreground">
+            <div className="space-y-3 sm:space-y-4">
+              <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2 sm:gap-0">
+                <h3 className="text-sm sm:text-lg font-semibold text-foreground">
                   Class {selectedClass}-{selectedSection} Student Reports
                 </h3>
                 <Button
                   variant="outline"
-                  className="flex items-center space-x-2"
+                  className="flex items-center space-x-2 h-8 sm:h-9 text-xs sm:text-sm w-full sm:w-auto"
                   onClick={() => {
                     const classStudents = getClassStudents();
                     if (classStudents.length === 0) {
@@ -3218,7 +3220,7 @@ const TeacherDashboard = () => {
               </div>
 
               {getClassStudents().length > 0 ? (
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4">
                   {getClassStudents().map((student) => {
                     const attendanceRate = student.attendance.length > 0 
                       ? Math.round((student.attendance.filter(a => a.status === 'present').length / student.attendance.length) * 100)
@@ -3351,38 +3353,38 @@ const TeacherDashboard = () => {
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          className="space-y-6"
+          className="space-y-4 sm:space-y-6"
         >
-          <div className="flex justify-between items-center">
-            <h2 className="text-2xl font-heading font-bold text-foreground">Fee Management</h2>
+          <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3 sm:gap-0">
+            <h2 className="text-lg sm:text-2xl font-heading font-bold text-foreground">Fee Management</h2>
             <Button
               onClick={() => setShowPaymentModal(true)}
-              className="bg-gradient-to-r from-gold to-yellow-500 text-black"
+              className="bg-gradient-to-r from-gold to-yellow-500 text-black h-9 sm:h-10 w-full sm:w-auto"
             >
               <Plus className="h-4 w-4 mr-2" />
-              Create Payment Request
+              <span className="text-sm sm:text-base">Create Payment Request</span>
             </Button>
           </div>
 
           {/* Fee Overview Stats */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-            <div className="bg-card/95 backdrop-blur-md rounded-xl p-6 border border-border/50">
-              <div className="flex items-center space-x-3">
-                <div className="w-12 h-12 rounded-full bg-green-500/20 flex items-center justify-center">
-                  <DollarSign className="h-6 w-6 text-green-400" />
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-3 sm:gap-4">
+            <div className="bg-card/95 backdrop-blur-md rounded-xl p-4 sm:p-6 border border-border/50">
+              <div className="flex items-center space-x-2 sm:space-x-3">
+                <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-green-500/20 flex items-center justify-center flex-shrink-0">
+                  <DollarSign className="h-5 w-5 sm:h-6 sm:w-6 text-green-400" />
                 </div>
                 <div>
-                  <p className="text-2xl font-bold text-foreground">
+                  <p className="text-xl sm:text-2xl font-bold text-foreground">
                     {feeRecords.filter(f => f.status === 'paid').length}
                   </p>
-                  <p className="text-sm text-muted-foreground">Paid Fees</p>
+                  <p className="text-xs sm:text-sm text-muted-foreground">Paid Fees</p>
                 </div>
               </div>
             </div>
 
-            <div className="bg-card/95 backdrop-blur-md rounded-xl p-6 border border-border/50">
-              <div className="flex items-center space-x-3">
-                <div className="w-12 h-12 rounded-full bg-yellow-500/20 flex items-center justify-center">
+            <div className="bg-card/95 backdrop-blur-md rounded-xl p-4 sm:p-6 border border-border/50">
+              <div className="flex items-center space-x-2 sm:space-x-3">
+                <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-yellow-500/20 flex items-center justify-center flex-shrink-0">
                   <Clock className="h-6 w-6 text-yellow-400" />
                 </div>
                 <div>
@@ -4119,14 +4121,14 @@ const TeacherDashboard = () => {
 
       {/* Edit Notification Modal */}
       {showEditNotificationModal && editingNotification && (
-        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
+        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-3 sm:p-4">
           <motion.div
             initial={{ opacity: 0, scale: 0.9 }}
             animate={{ opacity: 1, scale: 1 }}
-            className="bg-card rounded-xl p-6 w-full max-w-md border border-border/50"
+            className="bg-card rounded-xl p-4 sm:p-6 w-full max-w-md border border-border/50"
           >
-            <div className="flex items-center justify-between mb-4">
-              <h3 className="text-lg font-semibold text-foreground">
+            <div className="flex items-center justify-between mb-3 sm:mb-4">
+              <h3 className="text-base sm:text-lg font-semibold text-foreground">
                 Edit Notification
               </h3>
               <Button
@@ -4367,14 +4369,14 @@ const TeacherDashboard = () => {
 
       {/* Edit Student Notification Modal */}
       {showEditStudentNotificationModal && editingStudentNotification && (
-        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
+        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-3 sm:p-4">
           <motion.div
             initial={{ opacity: 0, scale: 0.9 }}
             animate={{ opacity: 1, scale: 1 }}
-            className="bg-card rounded-xl p-6 w-full max-w-lg border border-border/50"
+            className="bg-card rounded-xl p-4 sm:p-6 w-full max-w-lg border border-border/50"
           >
-            <div className="flex items-center justify-between mb-4">
-              <h3 className="text-lg font-semibold text-foreground">
+            <div className="flex items-center justify-between mb-3 sm:mb-4">
+              <h3 className="text-base sm:text-lg font-semibold text-foreground">
                 Edit Student Notification
               </h3>
               <Button
