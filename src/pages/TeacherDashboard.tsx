@@ -1737,6 +1737,7 @@ const TeacherDashboard = () => {
               <div className="rounded-md overflow-hidden bg-border/30 sm:bg-transparent">
                 <div className="grid grid-cols-3 gap-[1px] sm:grid-cols-4 md:grid-cols-5 lg:grid-cols-6 xl:grid-cols-8 sm:gap-3 lg:gap-4">
                 {[
+                  { title: "My Profile", desc: "Edit your profile", icon: User, action: () => navigate('/teacher-profile-settings') },
                   { title: "Send Homework", desc: "Assign homework with photos", icon: BookOpen, action: () => setActiveSection("homework") },
                   { title: "Take Attendance", desc: "Mark student attendance", icon: CheckCircle, action: () => setActiveSection("attendance") },
                   { title: "Create Student ID", desc: "Register new students", icon: UserPlus, action: () => setActiveSection("createstudent") },
@@ -1747,8 +1748,7 @@ const TeacherDashboard = () => {
                     console.log('[TeacherDashboard] Navigating to principal audio with teacher info:', { teacherEmail, teacherName });
                     navigate('/principal-audio');
                   } },
-                  { title: "View Teachers", desc: "Manage all teachers", icon: Users, action: () => navigate('/manage-teachers') },
-                  { title: "Profile", desc: "Manage your profile", icon: User, action: () => setActiveSection("profile") }
+                  { title: "View Teachers", desc: "Manage all teachers", icon: Users, action: () => navigate('/manage-teachers') }
                 ].map((item, index) => (
                   <motion.div
                     key={item.title}

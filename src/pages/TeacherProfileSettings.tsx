@@ -218,64 +218,72 @@ const TeacherProfileSettings = () => {
                   </div>
                 </motion.div>
 
-                {/* Profile Information Section */}
+                {/* Profile Information Section - Circle Grid Layout */}
                 <motion.div
                   initial={{ opacity: 0, x: 20 }}
                   animate={{ opacity: 1, x: 0 }}
                   transition={{ delay: 0.4 }}
-                  className="space-y-6"
+                  className="lg:col-span-2 space-y-6"
                 >
-                  <h3 className="text-xl font-heading font-bold text-foreground">
+                  <h3 className="text-xl font-heading font-bold text-foreground text-center">
                     Profile Information
                   </h3>
                   
-                  <div className="space-y-4">
-                    <div>
-                      <label className="block text-sm font-medium mb-2 text-foreground">
-                        Full Name
-                      </label>
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    {/* Full Name Circle */}
+                    <div className="flex flex-col items-center">
+                      <div className="w-40 h-40 rounded-full bg-gradient-to-br from-blue-500 to-cyan-500 flex items-center justify-center mb-3 shadow-lg">
+                        <User className="h-16 w-16 text-white" />
+                      </div>
+                      <label className="block text-sm font-medium mb-2 text-center">Full Name</label>
                       <Input
                         value={teacherProfile.name}
                         onChange={(e) => setTeacherProfile({ ...teacherProfile, name: e.target.value })}
                         placeholder="Enter your full name"
-                        className="bg-background/50"
+                        className="text-center bg-background/50"
                       />
                     </div>
 
-                    <div>
-                      <label className="block text-sm font-medium mb-2 text-foreground">
-                        Phone Number
-                      </label>
+                    {/* Phone Number Circle */}
+                    <div className="flex flex-col items-center">
+                      <div className="w-40 h-40 rounded-full bg-gradient-to-br from-green-500 to-emerald-500 flex items-center justify-center mb-3 shadow-lg">
+                        <Phone className="h-16 w-16 text-white" />
+                      </div>
+                      <label className="block text-sm font-medium mb-2 text-center">Phone Number</label>
                       <Input
                         value={teacherProfile.phone}
                         onChange={(e) => setTeacherProfile({ ...teacherProfile, phone: e.target.value })}
                         placeholder="Enter your phone number"
-                        className="bg-background/50"
+                        className="text-center bg-background/50"
                       />
                     </div>
 
-                    <div>
-                      <label className="block text-sm font-medium mb-2 text-foreground">
-                        Qualification
-                      </label>
+                    {/* Qualification Circle */}
+                    <div className="flex flex-col items-center">
+                      <div className="w-40 h-40 rounded-full bg-gradient-to-br from-purple-500 to-pink-500 flex items-center justify-center mb-3 shadow-lg">
+                        <GraduationCap className="h-16 w-16 text-white" />
+                      </div>
+                      <label className="block text-sm font-medium mb-2 text-center">Qualification</label>
                       <Input
                         value={teacherProfile.qualification}
                         onChange={(e) => setTeacherProfile({ ...teacherProfile, qualification: e.target.value })}
                         placeholder="e.g., M.Ed, B.Sc, Ph.D"
-                        className="bg-background/50"
+                        className="text-center bg-background/50"
                       />
                     </div>
 
-                    <div>
-                      <label className="block text-sm font-medium mb-2 text-foreground">
-                        Bio
-                      </label>
+                    {/* Bio Circle */}
+                    <div className="flex flex-col items-center">
+                      <div className="w-40 h-40 rounded-full bg-gradient-to-br from-yellow-500 to-orange-500 flex items-center justify-center mb-3 shadow-lg">
+                        <span className="text-6xl">📝</span>
+                      </div>
+                      <label className="block text-sm font-medium mb-2 text-center">Bio</label>
                       <Textarea
                         value={teacherProfile.bio}
                         onChange={(e) => setTeacherProfile({ ...teacherProfile, bio: e.target.value })}
                         placeholder="Tell us about yourself..."
                         rows={4}
-                        className="bg-background/50"
+                        className="text-center bg-background/50"
                       />
                     </div>
                   </div>

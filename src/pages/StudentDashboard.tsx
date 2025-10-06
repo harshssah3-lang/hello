@@ -1069,6 +1069,7 @@ const StudentDashboard = () => {
             </h2>
             <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-4">
               {[
+                { title: "My Profile", icon: User, color: "from-royal to-gold", action: () => navigate('/student-my-profile') },
                 { title: "View Grades", icon: BarChart3, color: "from-blue-500 to-cyan-500", action: () => setShowGradesModal(true) },
                 { title: "Assignments", icon: FileText, color: "from-green-500 to-emerald-500", action: () => {
                   loadAssignments(); // Refresh assignments when opening
@@ -1085,8 +1086,7 @@ const StudentDashboard = () => {
                 { title: "Timetable", icon: Clock, color: "from-orange-500 to-red-500", action: () => navigate('/student-timetable') },
                 { title: "Fees", icon: CreditCard, color: "from-green-500 to-emerald-500", action: () => setActiveSection("fees") },
                 { title: "Principal Audio", icon: Volume2, color: "from-indigo-500 to-purple-500", action: () => navigate('/principal-audio') },
-                { title: "Principal Remarks", icon: Star, color: "from-yellow-500 to-orange-500", action: () => setShowPrincipalRemarksModal(true) },
-                { title: "Profile", icon: User, color: "from-teal-500 to-blue-500", action: () => setActiveSection("profile") }
+                { title: "Principal Remarks", icon: Star, color: "from-yellow-500 to-orange-500", action: () => setShowPrincipalRemarksModal(true) }
               ].map((action, index) => (
                 <motion.button
                   key={action.title}

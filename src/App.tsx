@@ -46,6 +46,7 @@ import TeacherDashboard from "./pages/TeacherDashboard";
 import StudentAuth from "./pages/StudentAuth";
 import StudentDashboard from "./pages/StudentDashboard";
 import StudentTimetable from "./pages/StudentTimetable";
+import StudentMyProfile from "./pages/StudentMyProfile";
 import AuthLanding from "./pages/AuthLanding";
 import CurriculumGuide from "./pages/CurriculumGuide";
 import CookieConsentBanner from "./components/CookieConsentBanner";
@@ -508,6 +509,21 @@ function AnimatedRoutes() {
               transition={{ duration: 0.4 }}
             >
               <StudentTimetable />
+            </motion.div>
+          </ProtectedRoute>
+        } />
+        <Route path="/student-my-profile" element={
+          <ProtectedRoute
+            authKey="studentAuth"
+            redirectTo="/student-login"
+          >
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -20 }}
+              transition={{ duration: 0.4 }}
+            >
+              <StudentMyProfile />
             </motion.div>
           </ProtectedRoute>
         } />
