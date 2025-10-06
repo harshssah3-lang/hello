@@ -58,6 +58,7 @@ import TeacherProfileSettings from "./pages/TeacherProfileSettings";
 import StudentProfileSettings from "./pages/StudentProfileSettings";
 import CoursesManagement from "./pages/CoursesManagement";
 import Courses from "./pages/Courses";
+import YearlyBook from "./pages/YearlyBook";
 import PrincipalAudioRoute from "@/components/PrincipalAudioRoute";
 
 const queryClient = new QueryClient();
@@ -177,6 +178,16 @@ function AnimatedRoutes() {
             transition={{ duration: 0.15 }}
           >
             <EventDetail />
+          </motion.div>
+        } />
+        <Route path="/yearly-book" element={
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.15 }}
+          >
+            <YearlyBook />
           </motion.div>
         } />
         <Route path="/contact" element={

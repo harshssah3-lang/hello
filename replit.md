@@ -241,3 +241,13 @@ Added Academics and Facilities page managers in Principal Dashboard:
 - ✅ Success/error notifications using toast
 - ✅ Integrated in Content Management section of Principal Dashboard
 - Component: `src/components/YearlyBookManager.tsx`
+
+**Yearly Book Public Page:**
+- ✅ Created YearlyBook.tsx public page for students/parents
+- ✅ Displays books organized by class (1-12) with filtering options
+- ✅ Shows book details: title, author, description, year, and "Buy Now" button
+- ✅ Added route at `/yearly-book` in App.tsx
+- ✅ Added "Yearly Book" to navigation menu (hamburger and desktop)
+- ✅ Mobile responsive following existing page patterns (About, Courses)
+- ✅ No authentication required - accessible to all users
+- Page: `src/pages/YearlyBook.tsx`
