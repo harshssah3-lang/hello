@@ -98,7 +98,7 @@ const BrandingManager = () => {
           Branding & Logo Management
         </h2>
         <p className="text-muted-foreground">
-          Update your school's logo, colors, and branding information
+          Update your school's navigation logo (top-left corner), colors, and branding information
         </p>
       </div>
 
@@ -107,6 +107,65 @@ const BrandingManager = () => {
           <AlertDescription>{message}</AlertDescription>
         </Alert>
       )}
+
+      {/* Logo Upload Section */}
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 0.1 }}
+        className="bg-card border border-border rounded-lg p-6"
+      >
+        <div className="flex items-center space-x-3 mb-4">
+          <ImageIcon className="h-5 w-5 text-gold" />
+          <h3 className="text-lg font-semibold">Navigation Logo (Top-Left Corner)</h3>
+        </div>
+
+        <div className="space-y-4">
+          <div>
+            <label className="block text-sm font-medium mb-2">Current Logo</label>
+            {branding.logoUrl ? (
+              <div className="flex items-center space-x-4">
+                <img 
+                  src={branding.logoUrl} 
+                  alt="School Logo" 
+                  className="h-16 w-16 object-contain border border-border rounded"
+                />
+                <Button
+                  variant="outline"
+                  onClick={() => updateField('logoUrl', '')}
+                  className="text-red-500 hover:text-red-600"
+                >
+                  Remove Logo
+                </Button>
+              </div>
+            ) : (
+              <p className="text-sm text-muted-foreground">No logo uploaded</p>
+            )}
+          </div>
+
+          <div>
+            <label className="block text-sm font-medium mb-2">Upload New Logo</label>
+            <input
+              type="file"
+              accept="image/*"
+              onChange={async (e) => {
+                const file = e.target.files?.[0];
+                if (file) {
+                  const reader = new FileReader();
+                  reader.onload = (event) => {
+                    updateField('logoUrl', event.target?.result as string);
+                  };
+                  reader.readAsDataURL(file);
+                }
+              }}
+              className="block w-full text-sm text-muted-foreground file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-semibold file:bg-gold file:text-black hover:file:bg-gold/80"
+            />
+            <p className="text-xs text-muted-foreground mt-2">
+              This logo will appear in the top-left corner of the navigation bar
+            </p>
+          </div>
+        </div>
+      </motion.div>
 
       {/* School Information */}
       <motion.div

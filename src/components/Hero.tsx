@@ -141,22 +141,14 @@ const Hero = () => {
 
   return (
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
-      {/* Background Image with Overlay */}
-      <div className="absolute inset-0 z-0">
-        <img
-          src={currentBannerImage}
-          alt="Royal Academy"
-          className="w-full h-full object-cover transition-opacity duration-1000"
-          key={currentImageIndex}
-        />
-        <div 
-          className="absolute inset-0 bg-gradient-to-br from-royal/90 via-background/80 to-crimson/90"
-          style={{
-            background: `linear-gradient(to bottom right, ${homepageData.colors.primary}90, ${homepageData.colors.background}80, ${homepageData.colors.secondary}90)`
-          }}
-        ></div>
-        <div className="absolute inset-0 bg-black/40"></div>
-      </div>
+      {/* Background gradient only - no image */}
+      <div 
+        className="absolute inset-0 z-0"
+        style={{
+          background: `linear-gradient(to bottom right, ${homepageData.colors.primary}90, ${homepageData.colors.background}80, ${homepageData.colors.secondary}90)`
+        }}
+      ></div>
+      <div className="absolute inset-0 bg-black/40"></div>
 
       {/* Floating Elements - Hidden on mobile */}
       <div className="absolute top-20 left-10 w-20 h-20 rounded-full bg-gold/20 animate-float hidden sm:block"></div>
