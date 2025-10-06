@@ -251,3 +251,15 @@ Added Academics and Facilities page managers in Principal Dashboard:
 - ✅ Mobile responsive following existing page patterns (About, Courses)
 - ✅ No authentication required - accessible to all users
 - Page: `src/pages/YearlyBook.tsx`
+
+### Exam Routine Management System (October 2025)
+**Exam Routine Manager - Data Structure:**
+- ✅ Created ExamRoutine interface with comprehensive fields:
+  * id, date, exam_name, class, section, is_holiday, notes, createdAt
+- ✅ CRUD helper functions in `src/lib/examRoutinesHelper.ts`
+- ✅ Advanced filtering: by class/section, date range, month, specific date
+- ✅ Separate queries for holidays vs exams
+- ✅ Upcoming exams with sorting capabilities
+- ✅ Follows existing localStorage + Supabase key-value storage pattern
+- ✅ Storage key: `royal-academy-exam-routines`
+- ✅ Full JSDoc documentation on all functions and interfaces
