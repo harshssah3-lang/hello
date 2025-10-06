@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { ArrowRight, Award, BookOpen, Users } from "lucide-react";
 import { Button } from "./ui/button-variants";
 import { Link } from "react-router-dom";
+import { motion } from "framer-motion";
 import heroImage from "@/assets/hero-school.jpg";
 import schoolLogo from "@/assets/school-logo.png"; // Import the school logo
 import { getSupabaseData } from "@/lib/supabaseHelpers"; // Import Supabase helper
@@ -167,60 +168,64 @@ const Hero = () => {
               style={{ fontFamily: homepageData.fonts.heading }}
             >
               {homepageData.heroTitle.split(' ').map((word, index) => (
-                <span 
+                <motion.span 
                   key={index}
                   className={`block ${index === 0 ? 'text-gradient-gold' : 'text-foreground'}`}
-                  initial={{ opacity: 0, y: 20 }}
+                  initial={{ opacity: 0, y: 10 }}
                   animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.15, delay: 0.01 }}
+                  transition={{ duration: 0.4, delay: index * 0.1, ease: "easeOut" }}
                 >
                   {word}
-                </span>
+                </motion.span>
               ))}
             </h1>
-            <p 
+            <motion.p 
               className="text-base sm:text-xl md:text-2xl max-w-3xl mx-auto leading-relaxed px-2 sm:px-0"
               style={{ fontFamily: homepageData.fonts.body, color: '#000000' }}
-              initial={{ opacity: 0, y: 20 }}
+              initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.15, delay: 0.01 }}
+              transition={{ duration: 0.5, delay: 0.3, ease: "easeOut" }}
             >
               {homepageData.heroSubtitle}
-            </p>
+            </motion.p>
           </div>
 
           {/* Call to Action */}
           <div className="flex flex-col sm:flex-row gap-4 sm:gap-6 justify-center items-center pt-6 sm:pt-8 px-4 sm:px-0">
-            <Button variant="hero" size="xl" asChild
-              initial={{ opacity: 0, y: 20 }}
+            <motion.div
+              initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.15, delay: 0.01 }}
+              transition={{ duration: 0.5, delay: 0.5, ease: "easeOut" }}
             >
-              <Link to="/admissions" className="group">
-                {homepageData.heroButtonPrimary}
-                <ArrowRight className="ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform" />
-              </Link>
-            </Button>
-            <Button variant="outline" size="xl" asChild
-              initial={{ opacity: 0, y: 20 }}
+              <Button variant="hero" size="xl" asChild>
+                <Link to="/admissions" className="group">
+                  {homepageData.heroButtonPrimary}
+                  <ArrowRight className="ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform" />
+                </Link>
+              </Button>
+            </motion.div>
+            <motion.div
+              initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.15, delay: 0.01 }}
+              transition={{ duration: 0.5, delay: 0.6, ease: "easeOut" }}
             >
-              <Link to="/about">
-                {homepageData.heroButtonSecondary}
-              </Link>
-            </Button>
+              <Button variant="outline" size="xl" asChild>
+                <Link to="/about">
+                  {homepageData.heroButtonSecondary}
+                </Link>
+              </Button>
+            </motion.div>
           </div>
 
           {/* Stats */}
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 sm:gap-8 pt-8 sm:pt-16 px-2 sm:px-0">
             {stats.map((stat, index) => (
-              <div
+              <motion.div
                 key={stat.label}
                 className="card-3d p-4 sm:p-8 text-center group"
-                initial={{ opacity: 0, y: 20 }}
+                initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.15, delay: 0.01 }}
+                transition={{ duration: 0.5, delay: 0.7 + index * 0.1, ease: "easeOut" }}
               >
                 <div className="flex flex-col items-center space-y-4">
                   <div className="w-12 h-12 sm:w-16 sm:h-16 rounded-full bg-gradient-to-br from-gold/20 to-gold/40 flex items-center justify-center group-hover:scale-110 transition-transform">
@@ -233,7 +238,7 @@ const Hero = () => {
                     <p className="text-muted-foreground text-base sm:text-lg">{stat.label}</p>
                   </div>
                 </div>
-              </div>
+              </motion.div>
             ))}
           </div>
         </div>
