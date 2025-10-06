@@ -142,27 +142,15 @@ const Hero = () => {
   return (
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
       {/* Background with banner image rotation */}
-      {homepageData.bannerImages.length > 0 ? (
-        <div className="absolute inset-0 z-0">
-          <div 
-            className="absolute inset-0 bg-cover bg-center transition-all duration-1000 ease-in-out"
-            style={{
-              backgroundImage: `url(${currentBannerImage})`,
-            }}
-          ></div>
-          <div className="absolute inset-0 bg-black/50"></div>
-        </div>
-      ) : (
-        <>
-          <div 
-            className="absolute inset-0 z-0"
-            style={{
-              background: `linear-gradient(to bottom right, ${homepageData.colors.primary}90, ${homepageData.colors.background}80, ${homepageData.colors.secondary}90)`
-            }}
-          ></div>
-          <div className="absolute inset-0 bg-black/40"></div>
-        </>
-      )}
+      <div className="absolute inset-0 z-0">
+        <div 
+          className="absolute inset-0 bg-cover bg-center transition-all duration-1000 ease-in-out"
+          style={{
+            backgroundImage: `url(${currentBannerImage})`,
+          }}
+        ></div>
+        <div className="absolute inset-0 bg-black/50"></div>
+      </div>
 
       {/* Floating Elements - Hidden on mobile */}
       <div className="absolute top-20 left-10 w-20 h-20 rounded-full bg-gold/20 animate-float hidden sm:block"></div>
