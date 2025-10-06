@@ -71,6 +71,7 @@ Preferred communication style: Simple, everyday language.
 - `royal-academy-academics` - Academics page content (departments, achievements)
 - `royal-academy-facilities` - Facilities page content (facilities, stats)
 - `royal-academy-audio-messages` - Principal audio messages with base64 audio data
+- `royal-academy-yearly-books` - Yearly book recommendations by class and academic year
 
 **Data Flow**
 1. User action triggers state update in React component
@@ -219,3 +220,13 @@ Added Academics and Facilities page managers in Principal Dashboard:
 - ✅ Consistent responsive text sizing (text-xs sm:text-sm) throughout
 - ✅ Touch-friendly buttons and interactive elements
 - ✅ No horizontal scrolling at 375px width
+
+### Book Management System (October 2025)
+**Yearly Book Manager - Data Structure:**
+- ✅ Created YearlyBook interface with comprehensive fields:
+  * id, class (1-12), year, title, author, description, buying_link, createdAt
+- ✅ CRUD helper functions in `src/lib/booksHelper.ts`
+- ✅ Filtering capabilities: by class, by year, by class and year
+- ✅ Follows existing localStorage + Supabase key-value storage pattern
+- ✅ Storage key: `royal-academy-yearly-books`
+- ✅ Full JSDoc documentation on all functions and interfaces
