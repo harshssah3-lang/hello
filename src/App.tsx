@@ -68,16 +68,7 @@ function AnimatedRoutes() {
   return (
     <AnimatePresence mode="wait">
       <Routes location={location} key={location.pathname}>
-        <Route path="/" element={
-          <motion.div
-            initial={{ opacity: 1, y: 0 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.15 }}
-          >
-            <Index />
-          </motion.div>
-        } />
+        <Route path="/" element={<Index />} />
         <Route path="/about" element={
           <motion.div
             initial={{ opacity: 0 }}
@@ -635,7 +626,7 @@ const App = () => {
         attribute="class"
         defaultTheme="dark"
         enableSystem
-        disableTransitionOnChange={false}
+        disableTransitionOnChange
       >
         <TooltipProvider>
           <Toaster />
