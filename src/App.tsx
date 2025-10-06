@@ -70,350 +70,350 @@ function AnimatedRoutes() {
       <Routes location={location} key={location.pathname}>
         <Route path="/" element={
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 1, y: 0 }}
             animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -20 }}
-            transition={{ duration: 0.4 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.15 }}
           >
             <Index />
           </motion.div>
         } />
         <Route path="/about" element={
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -20 }}
-            transition={{ duration: 0.4 }}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.15 }}
           >
             <About />
           </motion.div>
         } />
         <Route path="/academics" element={
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -20 }}
-            transition={{ duration: 0.4 }}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.15 }}
           >
             <Academics />
           </motion.div>
         } />
         <Route path="/curriculum-guide" element={
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -20 }}
-            transition={{ duration: 0.4 }}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.15 }}
           >
             <CurriculumGuide />
           </motion.div>
         } />
         <Route path="/facilities" element={
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0 }}
             animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -20 }}
-            transition={{ duration: 0.4 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.15 }}
           >
             <Facilities />
           </motion.div>
         } />
         <Route path="/admissions" element={
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0 }}
             animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -20 }}
-            transition={{ duration: 0.4 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.15 }}
           >
             <Admissions />
           </motion.div>
         } />
         <Route path="/gallery" element={
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0 }}
             animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -20 }}
-            transition={{ duration: 0.4 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.15 }}
           >
             <Gallery />
           </motion.div>
         } />
         <Route path="/top-scorers" element={
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0 }}
             animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -20 }}
-            transition={{ duration: 0.4 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.15 }}
           >
             <TopScorers />
           </motion.div>
         } />
         <Route path="/top-scorers/learn-more" element={
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0 }}
             animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -20 }}
-            transition={{ duration: 0.4 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.15 }}
           >
             <TopScorersLearnMore />
           </motion.div>
         } />
         <Route path="/student/:studentId" element={
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0 }}
             animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -20 }}
-            transition={{ duration: 0.4 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.15 }}
           >
             <StudentProfile />
           </motion.div>
         } />
         <Route path="/events" element={
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0 }}
             animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -20 }}
-            transition={{ duration: 0.4 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.15 }}
           >
             <Events />
           </motion.div>
         } />
         <Route path="/events/:eventId" element={
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0 }}
             animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -20 }}
-            transition={{ duration: 0.4 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.15 }}
           >
             <EventDetail />
           </motion.div>
         } />
         <Route path="/contact" element={
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0 }}
             animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -20 }}
-            transition={{ duration: 0.4 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.15 }}
           >
             <Contact />
           </motion.div>
         } />
         <Route path="/privacy" element={
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0 }}
             animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -20 }}
-            transition={{ duration: 0.4 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.15 }}
           >
             <PrivacyPolicy />
           </motion.div>
         } />
         <Route path="/terms" element={
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0 }}
             animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -20 }}
-            transition={{ duration: 0.4 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.15 }}
           >
             <TermsOfService />
           </motion.div>
         } />
         <Route path="/sitemap" element={
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0 }}
             animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -20 }}
-            transition={{ duration: 0.4 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.15 }}
           >
             <Sitemap />
           </motion.div>
         } />
         <Route path="/cookies" element={
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0 }}
             animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -20 }}
-            transition={{ duration: 0.4 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.15 }}
           >
             <CookiePolicy />
           </motion.div>
         } />
         <Route path="/faq" element={
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0 }}
             animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -20 }}
-            transition={{ duration: 0.4 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.15 }}
           >
             <FAQ />
           </motion.div>
         } />
         <Route path="/primary-education" element={
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0 }}
             animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -20 }}
-            transition={{ duration: 0.4 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.15 }}
           >
             <PrimaryEducation />
           </motion.div>
         } />
         <Route path="/secondary-education" element={
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0 }}
             animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -20 }}
-            transition={{ duration: 0.4 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.15 }}
           >
             <SecondaryEducation />
           </motion.div>
         } />
         <Route path="/higher-secondary" element={
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0 }}
             animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -20 }}
-            transition={{ duration: 0.4 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.15 }}
           >
             <HigherSecondary />
           </motion.div>
         } />
         <Route path="/science-stream" element={
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0 }}
             animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -20 }}
-            transition={{ duration: 0.4 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.15 }}
           >
             <ScienceStream />
           </motion.div>
         } />
         <Route path="/commerce-stream" element={
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0 }}
             animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -20 }}
-            transition={{ duration: 0.4 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.15 }}
           >
             <CommerceStream />
           </motion.div>
         } />
         <Route path="/arts-stream" element={
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0 }}
             animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -20 }}
-            transition={{ duration: 0.4 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.15 }}
           >
             <ArtsStream />
           </motion.div>
         } />
         <Route path="/our-teachers" element={
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0 }}
             animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -20 }}
-            transition={{ duration: 0.4 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.15 }}
           >
             <OurTeachers />
           </motion.div>
         } />
         <Route path="/teacher/:teacherId" element={
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0 }}
             animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -20 }}
-            transition={{ duration: 0.4 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.15 }}
           >
             <TeacherProfile />
           </motion.div>
         } />
         <Route path="/alumni-network" element={
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0 }}
             animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -20 }}
-            transition={{ duration: 0.4 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.15 }}
           >
             <AlumniNetwork />
           </motion.div>
         } />
         <Route path="/library" element={
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0 }}
             animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -20 }}
-            transition={{ duration: 0.4 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.15 }}
           >
             <Library />
           </motion.div>
         } />
         <Route path="/career-services" element={
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0 }}
             animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -20 }}
-            transition={{ duration: 0.4 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.15 }}
           >
             <CareerServices />
           </motion.div>
         } />
         <Route path="/undergraduate" element={
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0 }}
             animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -20 }}
-            transition={{ duration: 0.4 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.15 }}
           >
             <Undergraduate />
           </motion.div>
         } />
         <Route path="/graduate" element={
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0 }}
             animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -20 }}
-            transition={{ duration: 0.4 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.15 }}
           >
             <Graduate />
           </motion.div>
         } />
         <Route path="/phd-programs" element={
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0 }}
             animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -20 }}
-            transition={{ duration: 0.4 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.15 }}
           >
             <PhdPrograms />
           </motion.div>
         } />
         <Route path="/online-learning" element={
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0 }}
             animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -20 }}
-            transition={{ duration: 0.4 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.15 }}
           >
             <OnlineLearning />
           </motion.div>
         } />
         <Route path="/principal" element={
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0 }}
             animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -20 }}
-            transition={{ duration: 0.4 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.15 }}
           >
             <PrincipalLogin />
           </motion.div>
         } />
         <Route path="/principal-dashboard" element={
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0 }}
             animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -20 }}
-            transition={{ duration: 0.4 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.15 }}
           >
             <PrincipalDashboard />
           </motion.div>
@@ -422,20 +422,20 @@ function AnimatedRoutes() {
         <Route path="/principal_dashboard" element={<Navigate to="/principal-dashboard" replace />} />
         <Route path="/teacher" element={
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0 }}
             animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -20 }}
-            transition={{ duration: 0.4 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.15 }}
           >
             <TeacherLogin />
           </motion.div>
         } />
         <Route path="/auth" element={
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0 }}
             animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -20 }}
-            transition={{ duration: 0.4 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.15 }}
           >
             <AuthLanding />
           </motion.div>
@@ -446,10 +446,10 @@ function AnimatedRoutes() {
             redirectTo="/teacher"
           >
             <motion.div
-              initial={{ opacity: 0, y: 20 }}
+              initial={{ opacity: 0 }}
               animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -20 }}
-              transition={{ duration: 0.4 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.15 }}
             >
               <TeacherDashboard />
             </motion.div>
@@ -463,10 +463,10 @@ function AnimatedRoutes() {
             redirectTo="/teacher"
           >
             <motion.div
-              initial={{ opacity: 0, y: 20 }}
+              initial={{ opacity: 0 }}
               animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -20 }}
-              transition={{ duration: 0.4 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.15 }}
             >
               <TeacherProfileSettings />
             </motion.div>
@@ -474,10 +474,10 @@ function AnimatedRoutes() {
         } />
         <Route path="/student-login" element={
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0 }}
             animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -20 }}
-            transition={{ duration: 0.4 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.15 }}
           >
             <StudentAuth />
           </motion.div>
@@ -488,10 +488,10 @@ function AnimatedRoutes() {
             redirectTo="/student-login"
           >
             <motion.div
-              initial={{ opacity: 0, y: 20 }}
+              initial={{ opacity: 0 }}
               animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -20 }}
-              transition={{ duration: 0.4 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.15 }}
             >
               <StudentDashboard />
             </motion.div>
@@ -503,10 +503,10 @@ function AnimatedRoutes() {
             redirectTo="/student-login"
           >
             <motion.div
-              initial={{ opacity: 0, y: 20 }}
+              initial={{ opacity: 0 }}
               animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -20 }}
-              transition={{ duration: 0.4 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.15 }}
             >
               <StudentTimetable />
             </motion.div>
@@ -518,10 +518,10 @@ function AnimatedRoutes() {
             redirectTo="/student-login"
           >
             <motion.div
-              initial={{ opacity: 0, y: 20 }}
+              initial={{ opacity: 0 }}
               animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -20 }}
-              transition={{ duration: 0.4 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.15 }}
             >
               <StudentMyProfile />
             </motion.div>
@@ -529,60 +529,60 @@ function AnimatedRoutes() {
         } />
         <Route path="/student-profile-settings" element={
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0 }}
             animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -20 }}
-            transition={{ duration: 0.4 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.15 }}
           >
             <StudentProfileSettings />
           </motion.div>
         } />
         <Route path="/create-teacher-id" element={
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0 }}
             animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -20 }}
-            transition={{ duration: 0.4 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.15 }}
           >
             <CreateTeacherID />
           </motion.div>
         } />
         <Route path="/manage-teacher-id" element={
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0 }}
             animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -20 }}
-            transition={{ duration: 0.4 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.15 }}
           >
             <ManageTeacherID />
           </motion.div>
         } />
         <Route path="/manage-teachers" element={
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0 }}
             animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -20 }}
-            transition={{ duration: 0.4 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.15 }}
           >
             <ManageTeachers />
           </motion.div>
         } />
         <Route path="/courses" element={
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0 }}
             animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -20 }}
-            transition={{ duration: 0.4 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.15 }}
           >
             <Courses />
           </motion.div>
         } />
         <Route path="/courses-management" element={
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0 }}
             animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -20 }}
-            transition={{ duration: 0.4 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.15 }}
           >
             <CoursesManagement />
           </motion.div>
@@ -640,7 +640,12 @@ const App = () => {
         <TooltipProvider>
           <Toaster />
           <Sonner />
-          <BrowserRouter>
+          <BrowserRouter
+            future={{
+              v7_startTransition: true,
+              v7_relativeSplatPath: true
+            }}
+          >
             <AnimatedRoutes />
             <CookieConsentBanner />
           </BrowserRouter>

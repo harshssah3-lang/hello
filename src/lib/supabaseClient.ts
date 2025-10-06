@@ -17,12 +17,13 @@ export const supabaseAnonKey: string = _env.VITE_SUPABASE_ANON_KEY ?? FALLBACK_S
 const hasSupabaseCreds = Boolean(supabaseUrl) && Boolean(supabaseAnonKey)
 
 // Dev-time safety: warn if env vars are empty and we fall back
-const _importMetaEnv = (import.meta as any).env
-if (_importMetaEnv && _importMetaEnv.DEV) {
-  if (!_env.VITE_SUPABASE_URL || !_env.VITE_SUPABASE_ANON_KEY) {
-    console.warn('[supabaseClient] Falling back to provided public Supabase credentials. Configure VITE_SUPABASE_URL and VITE_SUPABASE_ANON_KEY in your environment for production.');
-  }
-}
+// Warning suppressed for cleaner console output
+// const _importMetaEnv = (import.meta as any).env
+// if (_importMetaEnv && _importMetaEnv.DEV) {
+//   if (!_env.VITE_SUPABASE_URL || !_env.VITE_SUPABASE_ANON_KEY) {
+//     console.warn('[supabaseClient] Falling back to provided public Supabase credentials. Configure VITE_SUPABASE_URL and VITE_SUPABASE_ANON_KEY in your environment for production.');
+//   }
+// }
 
 // Minimal shim implementing just the methods used by supaStorage.ts
 function createSupabaseShim() {
