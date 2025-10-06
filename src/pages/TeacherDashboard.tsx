@@ -43,6 +43,7 @@ import { Input } from "@/components/ui/input";
 // import { textarea } from "@/components/ui/textarea";
 import StudentManager from "@/components/StudentManager";
 import LiveClassroom from "@/components/LiveClassroom";
+import { setSupabaseData } from "@/lib/supabaseHelpers";
 
 interface Student {
   id: string;
@@ -477,7 +478,7 @@ const TeacherDashboard = () => {
   };
 
   // Create or update homework
-  const handleCreateHomework = () => {
+  const handleCreateHomework = async () => {
     if (editingHomework) {
       // Update existing homework
       const updatedHomework = homework.map(hw => 
@@ -492,6 +493,7 @@ const TeacherDashboard = () => {
       );
       setHomework(updatedHomework);
       localStorage.setItem('royal-academy-homework', JSON.stringify(updatedHomework));
+      await setSupabaseData('royal-academy-homework', updatedHomework);
       alert(`Homework "${homeworkForm.title}" updated successfully!`);
     } else {
       // Create new homework
@@ -506,6 +508,7 @@ const TeacherDashboard = () => {
       const updatedHomework = [...homework, newHomework];
       setHomework(updatedHomework);
       localStorage.setItem('royal-academy-homework', JSON.stringify(updatedHomework));
+      await setSupabaseData('royal-academy-homework', updatedHomework);
       alert(`Homework "${newHomework.title}" has been sent to Class ${newHomework.class}-${newHomework.section} students!`);
     }
 
@@ -538,11 +541,12 @@ const TeacherDashboard = () => {
   };
 
   // Handle deleting homework
-  const handleDeleteHomework = (homeworkId: string) => {
+  const handleDeleteHomework = async (homeworkId: string) => {
     if (confirm('Are you sure you want to delete this homework? This action cannot be undone.')) {
       const updatedHomework = homework.filter(hw => hw.id !== homeworkId);
       setHomework(updatedHomework);
       localStorage.setItem('royal-academy-homework', JSON.stringify(updatedHomework));
+      await setSupabaseData('royal-academy-homework', updatedHomework);
       alert('Homework deleted successfully!');
     }
   };
@@ -658,7 +662,7 @@ const TeacherDashboard = () => {
 
 
   // Take attendance
-  const handleTakeAttendance = () => {
+  const handleTakeAttendance = async () => {
     const classStudents = students.filter(s => s.class === selectedClass && s.section === selectedSection);
 
     const today = new Date();
@@ -705,6 +709,7 @@ const TeacherDashboard = () => {
 
     setStudents(updatedStudents);
     localStorage.setItem('royal-academy-students', JSON.stringify(updatedStudents));
+    await setSupabaseData('royal-academy-students', updatedStudents);
 
     // Critical: Update auth students for student dashboard access
     const authStudents = JSON.parse(localStorage.getItem('royal-academy-auth-students') || '[]');
@@ -724,6 +729,7 @@ const TeacherDashboard = () => {
       return authStudent;
     });
     localStorage.setItem('royal-academy-auth-students', JSON.stringify(updatedAuthStudents));
+    await setSupabaseData('royal-academy-auth-students', updatedAuthStudents);
 
     console.log('Attendance updated:', {
       date: dateStr,
@@ -739,7 +745,7 @@ const TeacherDashboard = () => {
   };
 
   // Handle editing attendance for any specific day
-  const handleEditDayAttendance = (studentId: string, status: 'present' | 'absent' | 'late' | 'remove') => {
+  const handleEditDayAttendance = async (studentId: string, status: 'present' | 'absent' | 'late' | 'remove') => {
     const updatedStudents = students.map(student => {
       if (student.id === studentId) {
         let updatedAttendance = [...(student.attendance || [])];
@@ -779,6 +785,7 @@ const TeacherDashboard = () => {
 
     setStudents(updatedStudents);
     localStorage.setItem('royal-academy-students', JSON.stringify(updatedStudents));
+    await setSupabaseData('royal-academy-students', updatedStudents);
 
     // Critical: Update auth students for student dashboard access with comprehensive matching
     const authStudents = JSON.parse(localStorage.getItem('royal-academy-auth-students') || '[]');
@@ -800,6 +807,7 @@ const TeacherDashboard = () => {
       return authStudent;
     });
     localStorage.setItem('royal-academy-auth-students', JSON.stringify(updatedAuthStudents));
+    await setSupabaseData('royal-academy-auth-students', updatedAuthStudents);
 
     console.log('Edit day attendance updated:', {
       date: selectedEditDate,
@@ -822,7 +830,7 @@ const TeacherDashboard = () => {
   };
 
   // Add or update remarks
-  const handleAddRemarks = () => {
+  const handleAddRemarks = async () => {
     if (!remarksForm.studentId || !remarksForm.message) {
       alert('Please select a student and enter a message');
       return;
@@ -866,6 +874,7 @@ const TeacherDashboard = () => {
 
     setStudents(updatedStudents);
     localStorage.setItem('royal-academy-students', JSON.stringify(updatedStudents));
+    await setSupabaseData('royal-academy-students', updatedStudents);
 
     // Also update auth students for student dashboard access
     const authStudents = JSON.parse(localStorage.getItem('royal-academy-auth-students') || '[]');
@@ -916,6 +925,7 @@ const TeacherDashboard = () => {
     }
 
     localStorage.setItem('royal-academy-auth-students', JSON.stringify(updatedAuthStudents));
+    await setSupabaseData('royal-academy-auth-students', updatedAuthStudents);
     console.log('Updated auth students saved:', updatedAuthStudents);
 
     alert(`${remarksForm.type === 'good' ? 'Good' : 'Bad'} remark ${editingRemark ? 'updated' : 'added'} for ${targetStudent.name}!`);

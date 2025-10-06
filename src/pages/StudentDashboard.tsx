@@ -443,46 +443,6 @@ const StudentDashboard = () => {
       return;
     }
     
-    // Subscribe to realtime changes for students data
-    const unsubscribeStudents = subscribeToSupabaseChanges(
-      'royal-academy-students',
-      (newData: any[]) => {
-        console.log('[StudentDashboard] Students data updated from Supabase');
-        // Reload current student data if it changed
-        if (studentEmail) {
-          const updatedStudent = newData.find((s: any) => s.email === studentEmail);
-          if (updatedStudent) {
-            setStudentData({
-              id: updatedStudent.id,
-              fullName: updatedStudent.fullName || updatedStudent.name,
-              email: updatedStudent.email,
-              rollNumber: updatedStudent.rollNumber || 'N/A',
-              class: updatedStudent.class || 'N/A',
-              section: updatedStudent.section || 'A',
-              status: updatedStudent.status || 'active'
-            });
-          }
-        }
-      }
-    );
-    
-    // Subscribe to other relevant data
-    const unsubscribeReports = subscribeToSupabaseChanges('royal-academy-student-reports', () => {
-      console.log('[StudentDashboard] Reports updated');
-      window.location.reload(); // Reload to get fresh data
-    });
-    
-    const unsubscribeNotifications = subscribeToSupabaseChanges('royal-academy-student-notifications', () => {
-      console.log('[StudentDashboard] Notifications updated');
-      window.location.reload();
-    });
-    
-    return () => {
-      unsubscribeStudents();
-      unsubscribeReports();
-      unsubscribeNotifications();
-    };
-    
     // Ensure auth persists
     if (isAuth === "true") {
       localStorage.setItem("studentAuth", "true");
@@ -608,6 +568,122 @@ const StudentDashboard = () => {
         setStudentNotifications(myNotifications);
       }
     }
+  }, [studentData]);
+
+  // Set up real-time subscriptions AFTER studentData is loaded
+  useEffect(() => {
+    if (!studentData) return; // Don't subscribe until we have student data
+    
+    console.log('[StudentDashboard] Setting up real-time subscriptions for student:', studentData.id);
+    
+    // Subscribe to realtime changes for students data (attendance & remarks)
+    const unsubscribeStudents = subscribeToSupabaseChanges(
+      'royal-academy-students',
+      (newData: any[]) => {
+        console.log('[StudentDashboard] Students data updated from Supabase - using fresh data');
+        // Update localStorage with fresh Supabase data
+        localStorage.setItem('royal-academy-students', JSON.stringify(newData));
+        
+        // Find updated student data
+        const updatedStudent = newData.find((s: any) => s.email === studentData.email || s.id === studentData.id);
+        if (updatedStudent) {
+          setStudentData({
+            id: updatedStudent.id,
+            fullName: updatedStudent.fullName || updatedStudent.name,
+            email: updatedStudent.email,
+            rollNumber: updatedStudent.rollNumber || 'N/A',
+            class: updatedStudent.class || 'N/A',
+            section: updatedStudent.section || 'A',
+            status: updatedStudent.status || 'active'
+          });
+          // Reload remarks with fresh data now that localStorage is updated
+          loadStudentRemarks();
+        }
+      }
+    );
+    
+    // Subscribe to homework/assignments updates
+    const unsubscribeHomework = subscribeToSupabaseChanges(
+      'royal-academy-homework',
+      (newData: any[]) => {
+        console.log('[StudentDashboard] Homework/Assignments updated from Supabase');
+        // Update localStorage with fresh data
+        localStorage.setItem('royal-academy-homework', JSON.stringify(newData));
+        
+        const studentAssignments = newData.filter((hw: any) => 
+          hw.class === studentData.class && hw.section === studentData.section
+        );
+        setAssignments(studentAssignments);
+      }
+    );
+    
+    // Subscribe to student reports (grades)
+    const unsubscribeReports = subscribeToSupabaseChanges(
+      'royal-academy-student-reports', 
+      (newData: any[]) => {
+        console.log('[StudentDashboard] Reports/Grades updated from Supabase');
+        // Update localStorage with fresh data
+        localStorage.setItem('royal-academy-student-reports', JSON.stringify(newData));
+        
+        const myReports = newData.filter((report: any) => report.studentId === studentData.id);
+        setStudentReports(myReports);
+      }
+    );
+    
+    // Subscribe to student notifications
+    const unsubscribeNotifications = subscribeToSupabaseChanges(
+      'royal-academy-student-notifications',
+      (newData: any[]) => {
+        console.log('[StudentDashboard] Student notifications updated from Supabase');
+        // Update localStorage with fresh data
+        localStorage.setItem('royal-academy-student-notifications', JSON.stringify(newData));
+        
+        const myNotifications = newData.filter((notification: any) => {
+          return notification.targetType === 'all' ||
+                 (notification.targetType === 'class' && notification.targetClass === studentData.class) ||
+                 (notification.targetType === 'section' && notification.targetClass === studentData.class && notification.targetSection === studentData.section) ||
+                 (notification.targetType === 'student' && notification.targetStudentId === studentData.id);
+        });
+        setStudentNotifications(myNotifications);
+      }
+    );
+    
+    // Subscribe to principal remarks
+    const unsubscribePrincipalRemarks = subscribeToSupabaseChanges(
+      'royal-academy-principal-remarks',
+      (newData: any[]) => {
+        console.log('[StudentDashboard] Principal remarks updated from Supabase');
+        // Update localStorage with fresh data
+        localStorage.setItem('royal-academy-principal-remarks', JSON.stringify(newData));
+        
+        const myRemarks = newData.filter((remark: any) => remark.studentId === studentData.id);
+        setPrincipalRemarks(myRemarks);
+      }
+    );
+    
+    // Subscribe to auth students for teacher remarks
+    const unsubscribeAuthStudents = subscribeToSupabaseChanges(
+      'royal-academy-auth-students',
+      (newData: any[]) => {
+        console.log('[StudentDashboard] Auth students updated from Supabase');
+        // Update localStorage with fresh data
+        localStorage.setItem('royal-academy-auth-students', JSON.stringify(newData));
+        
+        // Reload remarks with fresh data
+        loadStudentRemarks();
+      }
+    );
+    
+    // Cleanup subscriptions when component unmounts or studentData changes
+    return () => {
+      console.log('[StudentDashboard] Cleaning up real-time subscriptions');
+      unsubscribeStudents();
+      unsubscribeHomework();
+      unsubscribeReports();
+      unsubscribeNotifications();
+      unsubscribePrincipalRemarks();
+      unsubscribeAuthStudents();
+    };
   }, [studentData]);
 
   // Set up real-time remarks refresh
